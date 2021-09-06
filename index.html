@@ -1,37 +1,106 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FishEye</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <!-- Header section   -->
     <header role="banner">
         <!-- Logo section   -->
-        <figure>
-            <img src="/FisheyeLogo.png" alt="Logo de Fisheye">
-        </figure>
+        <a href="/index.html" aria-label="le lien vers page d'accueil de FishEye">
+            <figure>
+                <img class="logo" src="/FisheyeLogo.png" alt="FishEye Home Page">
+            </figure>
+        </a>
 
         <!-- Navigation bar   -->
-        <nav aria-label="photographer categories">
-            <h2>Passer au contenu</h2>
-            <ul>
-                <li class="cat_portrait">#Portrait</li>
-                <li class="cat_art">#Art</li>
-                <li class="cat_fashion">#Fashion</li>
-                <li class="cat_architecture">#Architecture</li>
-                <li class="cat_travel">#Travel</li>
-                <li class="cat_sport">#Sport</li>
-                <li class="cat_animals">#Animals</li>
-                <li class="cat_events">#Events</li>
+        <nav class="nav" aria-label="photographer categories">
+            <a href="#nav__category" class="nav_tag-main" aria-labelledby="Passer au contenu">Passer au contenu</a>
+            <ul id="tag_container">
+                <li> <a class="nav_tag" id="portrait">#Portrait</a></li>
+                <li> <a class="nav_tag" id="art">#Art</a></li>
+                <li> <a class="nav_tag" id="fashion">#Fashion</a></li>
+                <li> <a class="nav_tag" id="architecture">#Architecture</a></li>
+                <li> <a class="nav_tag" id="travel">#Travel</a></li>
+                <li> <a class="nav_tag" id="sport">#Sport</a></li>
+                <li> <a class="nav_tag" id="animals">#Animals</a></li>
+                <li> <a class="nav_tag" id="events">#Events</a></li>
             </ul>
         </nav>
     </header>
     <!-- Main section   -->
     <main>
+        <h1>Nos photographes</h1>
+        <section id="photographer_container">
+            <!--Mimi Keel-->
+            <article class="photographer" id="mimi_keel">
+                <a href="" >
+                    <figure>
+                        <div class="avatar"><img src="./Sample Photos/Photographers ID Photos/MimiKeel.jpg"
+                                alt="Photo of Mimi Keel">
+                        </div>
+                        <figcaption>Mimi Keel</figcaption>
+                    </figure>
+                </a>
+                <div class="details">
+                    <p class="location">London,UK</P>
+                    <small class="slogan">Voir le beau</small>
+                    <p class="price">400€/jour</p>
+                </div>
+                <div class="tag-name">
+                    <a href="" class="tag_name"></a>
+                </div>
+            </article>
+            <article class="photographer" id="wilkens">
+                <a href="">
+                    <figure>
+                        <div class="avatar"><img src="./Sample Photos/Photographers ID Photos/EllieRoseWilkens.jpg"
+                                alt="Photo of Ellie-Rose Wilkens">
+                        </div>
+                        <figcaption>Ellie-Rose Wilkens</figcaption>
+                    </figure>
+                </a>
+                <div class="details">
+                    <p class="location">London,UK</P>
+                    <small class="slogan">Voir le beau</small>
+                    <p class="price">400€/jour</p>
+                </div>
+                <div class="tag-name">
+                    <a href="" class="tag_name"></a>
+                </div>
+            </article>
+            <article class="photographer" id="Galindo">
+                <a href="">
+                    <figure>
+                        <div class="avatar"><img src="./Sample Photos/Photographers ID Photos/TracyGalindo.jpg"
+                                alt="Photo of Tracy Galindo">
+                        </div>
+                        <figcaption>Tracy Galindo</figcaption>
+                    </figure>
+                </a>
+                <div class="details">
+                    <p class="location">London,UK</p>
+                    <p class="slogan">Voir le beau</p>
+                    <p class="price">400euro/jour</p>
+                </div>
+                <div class="tag-name">
+                    <a href="" class="tag_name"></a>
+                </div>
+            </article>
+        </section>
 
     </main>
+    <script src="./script.js"></script>
+
 </body>
+
 </html>
