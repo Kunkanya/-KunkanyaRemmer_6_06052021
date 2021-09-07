@@ -1,25 +1,25 @@
-// set variables
-var ourRequest = new XMLHttpRequest();
-var url =  "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeData.json"
+//var url =  "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeData.json"
+var dataRequest = new XMLHttpRequest;
+const url = "./data.json"
+const name = document.getElementById("name");
 
-ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-1.json');
-ourRequest.send;
-//request.open('GET', "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeData.jsonurlRequest");
-ourRequest.onload= function(){
-    console.log("success");
-};
+dataRequest.open('GET',url);
+dataRequest.onload = function(){
+  // set json data to objext in javasrcipt
+  var ourData = JSON.parse(dataRequest.responseText);
+  //console.log(ourData.photographer.name[0]);
 
+  var nameTest = ourData.photographers[2].name;
+  name.innerText = nameTest;
+  console.log(nameTest);
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => console.log(data));
-
-//fetch data from JSON url
-/*
-async function getData(){
-    const response = await fetch(urlRequest);
-    const data = await response.json();
-    console.log(data);
+    
+//  return ourData;
 }
+dataRequest.send();
+//call the function add content for each photograp when the page reloaded 
+window.addEventListener('load', (event) =>{
+  });
 
-getData()*/
+
+  
