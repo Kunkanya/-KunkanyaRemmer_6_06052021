@@ -5,13 +5,11 @@
     --color_secondary : #D3573C;
     --color_tertiary : #525252;
     --color_quaternary: #fafafa;
-
-
 }
 
 *,
 *::before,
-*::after {
+*::after {text-align: center;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -78,10 +76,17 @@ nav{
 
 .tag_name{
     border : solid 1px lightgray;
+    margin : 15px 2px;
+    padding: 1px 5px;
 }
-.tag_name::before{
+.nav_tag::before, .tag_name::before{
     content: "#";
 }
+
+.tag-name{
+    margin: 1em 0;
+}
+
 h1{
     display: grid;
     grid-column-start: 3/4;
@@ -106,7 +111,7 @@ section{
 .photographer{
     justify-self: center;
     display: flex;
-    width: 300px;
+    width: 100%;
     border : solid green 1px;
     align-items: center;
     flex-direction: column;
@@ -151,14 +156,11 @@ figcaption{
 .price, .slogan{
     color : lightgray;
     font-size: 70%;
+    margin-top: 0.5em;
 }
 
 .slogan{
     color : black;
 }
 
-.tag-name{
-    margin: 10px 0;
-    padding : 0 5px;
-}
 
