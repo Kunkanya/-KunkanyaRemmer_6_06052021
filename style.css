@@ -182,15 +182,15 @@ figcaption{
 /*photographer.html*/
 #id_name{
     position: static;
-    font-size: 5em;
-    font-weight: 300;
+    font-size: 3em;
+    font-weight: 600;
     color:var(--color_secondary);
 }
 
 .id_header{
     background-color:#fafafa;
     display:grid;
-    grid-template-columns: 30% 50% 20%;
+    grid-template-columns: 40% 40% 20%;
     padding : 50px ;
 
 }
@@ -220,4 +220,11 @@ figcaption{
     display: flex;
     justify-content: center;
     align-items: flex-end;
+}
+
+.imgGallery{
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
