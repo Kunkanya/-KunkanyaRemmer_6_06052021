@@ -223,8 +223,65 @@ figcaption{
 }
 
 .imgGallery{
-    width: 100%;
+    width: 200px;
     height: auto;
+}
+
+.media_container{
+    border : solid red 2px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    row-gap: 2em;
+    position: relative;
+}
+.media{
+    border : solid green 1px;
+}
+
+.media  img{
+    max-width : 350px;
+    height: 300px;
+    border-radius: 5px;
+    object-fit: cover;    
+}
+.media  video{
+    max-width : 350px;
+    height: 300px;
+    border-radius: 5px;
+    object-fit: cover;    
+}
+
+.figcaption_media{
+    border : solid green 1px;
+    display: inline-flex;
+    padding : 10px 0;
+justify-content: space-between;
+    font-size: 1.3em;
+    font-weight: 500;
+    width : 350px;
+
+    color : var(--color_primary);
+}
+
+.figcaption_media p{
+    color :black
+}
+
+.figcaption_media i{
+    color : var(--color_primary);
+}
+
+.like_total{
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    right:0;
+    background-color: var(--color_secondary);
+    width : 300px;
+    height: 70px;
+    border-radius: 10px  10px 0 0;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: space-between;
 }

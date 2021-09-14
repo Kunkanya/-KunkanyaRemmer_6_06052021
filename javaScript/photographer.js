@@ -17,6 +17,8 @@ const events = document.getElementById("events");
 const index = document.getElementById("indexPage");
 const photographerPage =document.getElementById("photographerPage");
 var newObject = [];
+var listGallery = new Object ();
+let arrListGallery = [];
 //Request data from Json file
 dataRequest.open("GET", url);
 dataRequest.onload = function () {
@@ -68,7 +70,6 @@ function tags(tags){
 }
 //--------------------------------------------------------------------------
 
-
 function photographertTemplate(index){
     var eachTag = [];
     eachTag =  newObject.photographers[index].tags;
@@ -77,7 +78,8 @@ function photographertTemplate(index){
         <header class= "id_header">
           <div class= "id_header-top">
               <h1 id="id_name">${newObject.photographers[index].name}</h1>
-              <p class="id_location">${newObject.photographers[index].city} , ${newObject.photographers[index].country}</p>
+              <p class="id_location">${newObject.photographers[index].city} , 
+              ${newObject.photographers[index].country}</p>
               <p class="id_slogan">${newObject.photographers[index].tagline}</p>
               <div class="tag-name">
                   ${tags(eachTag)}
@@ -87,13 +89,13 @@ function photographertTemplate(index){
               <button class="btn btn-contact"type="submit">Contactez-moi</button>               
           </div>
           <figure class="id_avatar"> 
-          <div class="avatar "><img src="./Sample Photos/Photographers ID Photos/${newObject.photographers[index].portrait}" 
-          alt="Photo of ${newObject.photographers[index].name}">
+          <div class="avatar ">
+            <img src="./Sample Photos/Photographers ID Photos/${newObject.photographers[index].portrait}" 
+              alt="Photo of ${newObject.photographers[index].name}">
           </div>
           </figure>
         </header>
       
-
       <label for="dropdown_menu">Trier par</label>
       <select class="btn dropdown" name="sort_menu" id="dropdown_menu">
           <option value="popular">Popularité</option>
@@ -101,47 +103,70 @@ function photographertTemplate(index){
           <option value="title">Titre</option>
       </select>
 
-      <div id="galleryContainer">
-
+      <div class = "media_container" id="galleryContainer"></div>
+      <div class="like_total"><p>854445 <i class="fas fa-heart"></i></p>
+          <span>300euro/jour</span>
       </div>
-
         `   
+}
+//--------------------------------------------------------------------------
 
-      }
-  
+//Function create gallery for each photographer by passing parameter of 
+//array of each photographer and the name
   function gallery(photographerId , photographerName){
-    var listGallery = {};
-    var listGalleryContainer =[];
     var imgPath ="";
     const galleryContainer =document.getElementById("galleryContainer");
     for (j=0; j < newObject.media.length; j++){
-          isId= newObject.media[j].photographerId
+          isId = newObject.media[j].photographerId
           if( photographerId == isId){
-              listGallery = newObject.media[j];
-              listGalleryContainer.push(listGallery);
-              if(listGallery.image != null){
-              console.log(listGallery.title);
-              console.log(listGalleryContainer);
-              gallery(listGalleryContainer);
-          }
-
-        };  
-
+              listGallery= Object.assign(newObject.media[j]);
+              arrListGallery.push(listGallery);
+            };  
     };
-    function gallery(x){
-      x.map(function(){
-          console.log(x[0].title);
-          galleryContainer.innerHTML =  `<div class="imgGallery"> 
-          <img  
-          src="${imgPath}" alt="test"> </div>
-        `
-              
-        }).join( 'and');
-  
+    createGallery(arrListGallery, photographerName);
+    
+  }
+//--------------------------------------------------------------------------
+function createGallery(arrGallery,isName) {
+  let path = ""
+  let source = ""
+  for(i=0; i< arrGallery.length; i++){
+    var gallery = `
+    <figure class="media">${sourcePath(arrGallery, i)}  
+      <figcaption class="figcaption_media">${arrGallery[i].title} ${arrGallery[i].image}     
+        <p>${arrGallery[i].likes} <i class="fas fa-heart like"></i></p> 
+      </figcaption>
+    <figure> 
+` 
+
+/*  const like = document.querySelector(".like");
+  like.addEventListener('click', addLike(noLike));
+
+  function addLike(like){
+    let count = like ;
+    console.log(count);
+  }
+
+  */
+
+
+
+// add html block to the page
+    galleryContainer.innerHTML  += gallery;
+
+    //Function to check whether media is image or video
+    function sourcePath(arrGallery){
+        if( arrGallery[i].image == null){
+          path = `"./Sample Photos/${isName}/${arrGallery[i].video}"`
+          source = `<video src=${path} type="video/mp4">`
+          return source
+        } else {
+          path = `"./Sample Photos/${isName}/${arrGallery[i].image}"`
+          source = `<img src=${path} alt="Photo of ${arrGallery[i].title}">`  
+          return source
+        }    
     }
-  
-  };
+  }
+}
+//--------------------------------------------------------------------------
 
-
-
-  
