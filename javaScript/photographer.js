@@ -19,6 +19,8 @@ const photographerPage =document.getElementById("photographerPage");
 var newObject = [];
 var listGallery = new Object ();
 let arrListGallery = [];
+let countLike = 0;
+var passedName =""
 //Request data from Json file
 dataRequest.open("GET", url);
 dataRequest.onload = function () {
@@ -41,6 +43,7 @@ dataRequest.onload = function () {
         name= newObject.photographers[i].name;
         console.log (name);
         name = name.split(' ').slice(0,1);
+        passedName = name;
         photographertTemplate(i);
         gallery(passedId, name);
         return i, name;
@@ -97,19 +100,61 @@ function photographertTemplate(index){
         </header>
       
       <label for="dropdown_menu">Trier par</label>
-      <select class="btn dropdown" name="sort_menu" id="dropdown_menu">
-          <option value="popular">Popularité</option>
+      <select onchange="loadBySort(this.value)" class="btn dropdown" name="sort_menu" id="dropdown_menu">
+        <option value="popular">option</option>
+        <option value="popular">Popularité</option>
           <option value="date">Date</option>
           <option value="title">Titre</option>
       </select>
 
       <div class = "media_container" id="galleryContainer"></div>
-      <div class="like_total"><p>854445 <i class="fas fa-heart"></i></p>
+      <div class="like_total">
+          <div class = "like_box_bottom">
+            <p id="total_like"></p>  
+            <i class="fas fa-heart"></i>
+          </div>
           <span>300euro/jour</span>
       </div>
         `   
 }
 //--------------------------------------------------------------------------
+
+// Function for sort when choose the option in dropdown list.
+function loadBySort(option){
+  if(option == "popular"){
+    const sortByLike = arrListGallery.sort(function(a,b){
+      return a.likes-b.likes;
+    });   
+    console.log(sortByLike);
+    // set container for gallery = "" and call the function to create a new gallery sorted by likes
+    galleryContainer.innerHTML="";
+    createGallery(sortByLike,passedName);
+
+  } else if(option == "date"){
+    const sortByDate = arrListGallery.sort(function(a,b){
+      console.log(new Date(a.date).valueOf());
+      return new Date(a.date).valueOf() - new Date(a.date).valueOf() ; //timestamps
+      // not yet finishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    
+    });
+
+
+  galleryContainer.innerHTML="";
+  createGallery(sortByDate,passedName);
+  console.log(sortByDate);
+ 
+  }else if(option == "title"){
+    const sortByName = arrListGallery.sort(function(a,b){
+        if(a.title.toLowerCase() < b.title.toLowerCase()) return -1; // a comes first
+        if(a.title.toLowerCase() > b.title.toLowerCase()) return 1; // b comes first
+        if(a.title.toLowerCase() = b.title.toLowerCase()) return 0; // nothing change
+    });
+
+    galleryContainer.innerHTML="";
+    createGallery(sortByName,passedName);
+
+  }
+}
 
 //Function create gallery for each photographer by passing parameter of 
 //array of each photographer and the name
@@ -124,49 +169,52 @@ function photographertTemplate(index){
             };  
     };
     createGallery(arrListGallery, photographerName);
-    
+
+
   }
 //--------------------------------------------------------------------------
 function createGallery(arrGallery,isName) {
   let path = ""
   let source = ""
   for(i=0; i< arrGallery.length; i++){
+    let  likes = arrGallery[i].likes;
     var gallery = `
     <figure class="media">${sourcePath(arrGallery, i)}  
-      <figcaption class="figcaption_media">${arrGallery[i].title} ${arrGallery[i].image}     
-        <p>${arrGallery[i].likes} <i class="fas fa-heart like"></i></p> 
-      </figcaption>
-    <figure> 
-` 
+      <figcaption class="figcaption_media">${arrGallery[i].title}     
+         <i data-like="${likes}" id="like" class="fas fa-heart test"></i>
+         </figcaption>
+         <p>${arrListGallery[i].date}</p>
+    <figure>
+     `
 
-/*  const like = document.querySelector(".like");
-  like.addEventListener('click', addLike(noLike));
-
-  function addLike(like){
-    let count = like ;
-    console.log(count);
-  }
-
-  */
-
-
+countLike += likes;
 
 // add html block to the page
-    galleryContainer.innerHTML  += gallery;
+galleryContainer.innerHTML  += gallery;
+              //Function to check whether media is image or video
+            function sourcePath(arrGallery){
+                if( arrGallery[i].image == null){
+                  path = `"./Sample Photos/${isName}/${arrGallery[i].video}"`
+                  source = `<video src=${path} type="video/mp4"> </video>`
+                  console.log(source);
+                  return source
+                } else if(arrGallery[i].video == null) {
+                  path = `"./Sample Photos/${isName}/${arrGallery[i].image}"`
+                  source = `<img src=${path} alt="Photo of ${arrGallery[i].title}">`
+                  console.log(source);
+                  return source
+                }    
+            }
 
-    //Function to check whether media is image or video
-    function sourcePath(arrGallery){
-        if( arrGallery[i].image == null){
-          path = `"./Sample Photos/${isName}/${arrGallery[i].video}"`
-          source = `<video src=${path} type="video/mp4">`
-          return source
-        } else {
-          path = `"./Sample Photos/${isName}/${arrGallery[i].image}"`
-          source = `<img src=${path} alt="Photo of ${arrGallery[i].title}">`  
-          return source
-        }    
-    }
+  
   }
+  
+
+  //add the total likes for each photographer
+  console.log(countLike);
+  const total_like = document.querySelector("#total_like");
+  total_like.innerText = countLike;
+ return; 
 }
 //--------------------------------------------------------------------------
 

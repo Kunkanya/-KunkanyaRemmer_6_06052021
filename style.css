@@ -53,6 +53,7 @@ nav{
     justify-content: center;
     align-items: center;
     width : fit-content;
+    position: relative;
 }
 #tag_container{
     display: flex;
@@ -77,6 +78,8 @@ nav{
     font-weight: bold;
     padding: 5px 10px;
     margin: 5px 10px 20px 10px;
+    position: fixed;
+    top: 0px;
 }
 .nav_tag,
 .tag_name {
@@ -245,8 +248,9 @@ figcaption{
     border-radius: 5px;
     object-fit: cover;    
 }
-.media  video{
-    max-width : 350px;
+.media video{
+    border : red solid 2px;
+    width : 350px;
     height: 300px;
     border-radius: 5px;
     object-fit: cover;    
@@ -260,7 +264,7 @@ justify-content: space-between;
     font-size: 1.3em;
     font-weight: 500;
     width : 350px;
-
+    position: relative;
     color : var(--color_primary);
 }
 
@@ -269,12 +273,11 @@ justify-content: space-between;
 }
 
 .figcaption_media i{
-    color : var(--color_primary);
+    color : var(--color_primary)
 }
 
 .like_total{
-    position: -webkit-sticky;
-    position: sticky;
+    position: fixed;
     bottom: 0;
     right:0;
     background-color: var(--color_secondary);
@@ -284,4 +287,21 @@ justify-content: space-between;
     padding: 10px 10px;
     display: flex;
     justify-content: space-between;
+}
+
+#like::after{
+    content : attr(data-like);
+    position: absolute;
+    right: 40px;
+}
+
+.like_box_bottom{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#total_like{
+    margin-right: 20px;
 }
