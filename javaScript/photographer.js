@@ -1,39 +1,31 @@
-//var url =  "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeData.json"
+//-------------------Page Photograger----------------------------//
+
+//--Variables Global
 var dataRequest = new XMLHttpRequest();
 const url = "./data.json";
 
 const locationPhotographer = document.querySelector(".location");
 const profileContainer = document.getElementById("profile_container");
 const linkPage = document.getElementById("link_profile");
-//Variable for tags
-const portrait = document.getElementById("portrait");
-const art = document.getElementById("art");
-const fashion = document.getElementById("fashion");
-const architecture = document.getElementById("architecture");
-const travel = document.getElementById("travel");
-const sport = document.getElementById("sport");
-const animals = document.getElementById("animals");
-const events = document.getElementById("events");
-const index = document.getElementById("indexPage");
-const photographerPage =document.getElementById("photographerPage");
-var newObject = [];
+
 var listGallery = new Object ();
-let arrListGallery = [];
-let countLike = 0;
+var newObject = [];
+var arrListGallery = [];
+var countLike = 0;
 var passedName =""
-//Request data from Json file
+//--Request data from Json file
 dataRequest.open("GET", url);
 dataRequest.onload = function () {
-  // set json data to object in javasrcipt
+  //--set json data to object in javasrcipt
   var ourData = JSON.parse(dataRequest.responseText);
   newObject = ourData;
-    //for searching for the ID of photographer"
+    //--for searching for the ID of photographer"
     var link = document.location.search;
-    /*seperate the result from locarion.search with '=' then we will have 2 array
-    array[0]= "?id=", array[1]= ID of photographer*/
+    /*--seperate the result from locarion.search with '=' then we will have 2 array
+    array[0]= "?id=", array[1]= ID of photographer--*/
     const myArr = link.split("=");
     var  photoId = myArr[1];
-    //convert string to integer for checking ID 
+    //--convert string to integer for checking ID 
     var passedId = parseInt(photoId);
     
     for(i=0; i<newObject.photographers.length; i++){
@@ -54,24 +46,6 @@ dataRequest.onload = function () {
 }
 dataRequest.send();
 
-//--------------------------------------------------------------------------
-function tags(tags){
-  /*Page 1: Crate HTML block for "tags" which is array in jsonData and object, so use method map()
-  to get the new array for "tags" also use join() to loop for each tags
-   */
-  return `
-  <span class="tag-name">
-    ${tags.map(function(tags){
-      return `  
-          <a href="" class="tag_name"> 
-          ${tags}
-          </a>          
-      `    
-    }).join('')}
-  </span>
-  `
-}
-//--------------------------------------------------------------------------
 
 function photographertTemplate(index){
     var eachTag = [];
@@ -100,9 +74,8 @@ function photographertTemplate(index){
         </header>
       
       <label for="dropdown_menu">Trier par</label>
-      <select onchange="loadBySort(this.value)" class="btn dropdown" name="sort_menu" id="dropdown_menu">
-        <option value="popular">option</option>
-        <option value="popular">Popularité</option>
+      <select onchange="loadBySort(this.value)" class="btn dropdown" name="sort_menu" id="sort_menu">
+          <option value="popular">Popularité</option>
           <option value="date">Date</option>
           <option value="title">Titre</option>
       </select>
@@ -118,43 +91,24 @@ function photographertTemplate(index){
         `   
 }
 //--------------------------------------------------------------------------
-
-// Function for sort when choose the option in dropdown list.
-function loadBySort(option){
-  if(option == "popular"){
-    const sortByLike = arrListGallery.sort(function(a,b){
-      return a.likes-b.likes;
-    });   
-    console.log(sortByLike);
-    // set container for gallery = "" and call the function to create a new gallery sorted by likes
-    galleryContainer.innerHTML="";
-    createGallery(sortByLike,passedName);
-
-  } else if(option == "date"){
-    const sortByDate = arrListGallery.sort(function(a,b){
-      console.log(new Date(a.date).valueOf());
-      return new Date(a.date).valueOf() - new Date(a.date).valueOf() ; //timestamps
-      // not yet finishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-    
-    });
-
-
-  galleryContainer.innerHTML="";
-  createGallery(sortByDate,passedName);
-  console.log(sortByDate);
- 
-  }else if(option == "title"){
-    const sortByName = arrListGallery.sort(function(a,b){
-        if(a.title.toLowerCase() < b.title.toLowerCase()) return -1; // a comes first
-        if(a.title.toLowerCase() > b.title.toLowerCase()) return 1; // b comes first
-        if(a.title.toLowerCase() = b.title.toLowerCase()) return 0; // nothing change
-    });
-
-    galleryContainer.innerHTML="";
-    createGallery(sortByName,passedName);
-
-  }
+//--------------------------------------------------------------------------
+function tags(tags){
+  /*--Page 1: Crate HTML block for "tags" which is array in jsonData and object, so use method map()
+  to get the new array for "tags" also use join() to loop for each tags
+   --*/
+  return `
+    ${tags.map(function(tags){
+      console.log(tags);
+      return `  
+          <a onclick="filterTag(this)" class="tag_name test"> 
+          ${tags}
+          </a>          
+      `    
+    }).join('')}
+  `
 }
+//--------------------------------------------------------------------------
+
 
 //Function create gallery for each photographer by passing parameter of 
 //array of each photographer and the name
@@ -169,19 +123,18 @@ function loadBySort(option){
             };  
     };
     createGallery(arrListGallery, photographerName);
-
-
   }
 //--------------------------------------------------------------------------
 function createGallery(arrGallery,isName) {
+
   let path = ""
   let source = ""
   for(i=0; i< arrGallery.length; i++){
     let  likes = arrGallery[i].likes;
     var gallery = `
     <figure class="media">${sourcePath(arrGallery, i)}  
-      <figcaption class="figcaption_media">${arrGallery[i].title}     
-         <i data-like="${likes}" id="like" class="fas fa-heart test"></i>
+      <figcaption id="test" class="figcaption_media">${arrGallery[i].title}     
+         <i data-like="${likes}" id="like" class="fas fa-heart"></i>
          </figcaption>
          <p>${arrListGallery[i].date}</p>
     <figure>
@@ -208,8 +161,6 @@ galleryContainer.innerHTML  += gallery;
 
   
   }
-  
-
   //add the total likes for each photographer
   console.log(countLike);
   const total_like = document.querySelector("#total_like");
@@ -218,3 +169,55 @@ galleryContainer.innerHTML  += gallery;
 }
 //--------------------------------------------------------------------------
 
+
+// Function for sort when choose the option in dropdown list.
+function loadBySort(option){
+  if(option == "popular"){
+    const sortByLike = arrListGallery.sort(function(a,b){
+      return a.likes-b.likes;
+    });   
+    console.log(sortByLike);
+    // set container for gallery = "" and call the function to create a new gallery sorted by likes
+    galleryContainer.innerHTML="";
+    createGallery(sortByLike,passedName);
+    return;
+  } else if(option == "date"){
+    const sortByDate = arrListGallery.sort(function(a,b){
+
+      return new Date(a.date).valueOf() - new Date(b.date).valueOf(2019-08-23) ; //timestamps      
+    });
+
+    console.log(sortByDate);
+  galleryContainer.innerHTML="";
+  createGallery(sortByDate,passedName);
+  return;
+  }else if(option == "title"){
+    const sortByName = arrListGallery.sort(function(a,b){
+        if(a.title.toLowerCase() < b.title.toLowerCase()) return -1; // a comes first
+        if(a.title.toLowerCase() > b.title.toLowerCase()) return 1; // b comes first
+        if(a.title.toLowerCase() = b.title.toLowerCase()) return 0; // nothing change
+    });
+
+    galleryContainer.innerHTML="";
+    createGallery(sortByName,passedName);
+    return;
+  }
+}
+
+//--------------------------------------------------------------------------
+// Function for filter the tagsname 
+function filterTag(ele){
+  //ele.innerHTML = tagname to be searched : use trim()to have only string ready for search
+  let searchText = ele.innerHTML;
+    console.log(searchText.trim());
+    searchText = searchText.trim();
+    var newArray = arrListGallery.filter(function(e){
+      //change e.tags which is object to string 
+      var x = e.tags.toString();
+      console.log("x is= " + x )
+            return x == searchText;
+    });
+console.log(newArray) ;
+galleryContainer.innerHTML="";
+createGallery(newArray,passedName);
+}

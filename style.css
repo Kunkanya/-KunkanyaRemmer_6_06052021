@@ -52,7 +52,6 @@ nav{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width : fit-content;
     position: relative;
 }
 #tag_container{
@@ -60,24 +59,19 @@ nav{
     flex-direction: row;
 }
 .logo{
-    width: 90%;
     display: grid;
     grid-column: 1; 
     padding-left:0;
-    margin: 20px 0 0 0;   
+    margin: 1em 0 0 0;   
 }
 .nav_tag-main{
-    display: grid;
-    grid-column: 2;    
     display: flex;
     justify-content: center;
-    width : fit-content;
     border-radius : 5px;    
     background-color: var(--color_secondary);
     color: black;
     font-weight: bold;
     padding: 5px 10px;
-    margin: 5px 10px 20px 10px;
     position: fixed;
     top: 0px;
 }
@@ -94,6 +88,7 @@ nav{
 }
 
 .tag_name{
+    cursor: pointer;
     border : solid 1px lightgray;
     margin : 15px 2px;
     padding: 1px 5px;
@@ -118,7 +113,7 @@ h1{
 }
 
 section{
-    margin: 4em 0;
+    margin: 1em 0;
     padding : 1em;
     display:grid;
     border : violet 1px solid;
@@ -132,7 +127,6 @@ section{
     justify-self: center;
     display: flex;
     width: 100%;
-    border : solid green 1px;
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -194,7 +188,7 @@ figcaption{
     background-color:#fafafa;
     display:grid;
     grid-template-columns: 40% 40% 20%;
-    padding : 50px ;
+    padding : 1em 3em;
 
 }
 
