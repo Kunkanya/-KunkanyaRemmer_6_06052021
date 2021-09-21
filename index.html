@@ -23,9 +23,9 @@
         </a>
 
         <!-- Navigation bar   -->
-        <nav class="nav" id="head" aria-label="photographer categories">
-            <a href="#head" class="nav_tag-main" aria-labelledby="Passer au contenu">Passer au contenu</a>
-            <ul id="tag_container">
+        <nav class="nav" id="head" role="navigation" aria-label="photographer categories">
+            <a href="#head" id="nav_tag-main" aria-labelledby="Passer au contenu">Passer au contenu</a>
+            <ul id="tag_container" role="list">
                 <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="portrait">Portrait</a></li>
                 <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="art">Art</a></li>
                 <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="fashion">Fashion</a></li>
@@ -38,34 +38,13 @@
         </nav>
     </header>
     <!-- Main section   -->
-    <main>
+    <main role="main">
         <h1>Nos photographes</h1>
         <section id="profile_container">
-            <!--
-            <article class="photographer" >
-                <a href="" >
-                    <figure>
-                        <div class="avatar"><img src="./Sample Photos/Photographers ID Photos/MimiKeel.jpg"
-                                alt="Photo of Mimi Keel">
-                        </div>
-                        <figcaption id="name"></figcaption>
-                    </figure>
-                </a>
-                <div class="details">
-                    <p class="location"></P>
-                    <small class="slogan"></small>
-                    <p class="price"></p>
-                </div>
-                <div class="tag-name">
-                    <a href="" class="tag_name"></a>
-                </div>
-            </article>
-        -->
         </section>
 
     </main>
     <script src="./javaScript/script.js"></script>
-
 </body>
 
 </html>

@@ -64,7 +64,7 @@ nav{
     padding-left:0;
     margin: 1em 0 0 0;   
 }
-.nav_tag-main{
+#nav_tag-main{
     display: flex;
     justify-content: center;
     border-radius : 5px;    
@@ -73,7 +73,13 @@ nav{
     font-weight: bold;
     padding: 5px 10px;
     position: fixed;
-    top: 0px;
+    top: -90px;
+    transition: ease-in-out 0.8s;
+}
+
+#nav_tag-main.sticky{
+    position: fixed;
+    top : 0;
 }
 .nav_tag,
 .tag_name {
@@ -282,11 +288,13 @@ justify-content: space-between;
     display: flex;
     justify-content: space-between;
 }
+.like{
+    cursor: pointer;
+}
 
-#like::after{
-    content : attr(data-like);
-    position: absolute;
-    right: 40px;
+.show_like{
+    background-color: chartreuse;
+    border : solid blue 1px;
 }
 
 .like_box_bottom{

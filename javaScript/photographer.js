@@ -7,6 +7,7 @@ const url = "./data.json";
 const locationPhotographer = document.querySelector(".location");
 const profileContainer = document.getElementById("profile_container");
 const linkPage = document.getElementById("link_profile");
+//let heart = document.querySelectorAll(".like");
 
 var listGallery = new Object ();
 var newObject = [];
@@ -32,8 +33,8 @@ dataRequest.onload = function () {
       const checkId = newObject.photographers[i].id ;
       var name = "";
       if( passedId == checkId ){
+        //--to get only firstname using for the variable for Photos Path
         name= newObject.photographers[i].name;
-        console.log (name);
         name = name.split(' ').slice(0,1);
         passedName = name;
         photographertTemplate(i);
@@ -53,28 +54,28 @@ function photographertTemplate(index){
   
     photographerPage.innerHTML = ` 
         <header class= "id_header">
-          <div class= "id_header-top">
+          <nav class= "id_header-top">
               <h1 id="id_name">${newObject.photographers[index].name}</h1>
-              <p class="id_location">${newObject.photographers[index].city} , 
-              ${newObject.photographers[index].country}</p>
+              <h2 class="id_location">${newObject.photographers[index].city} , 
+              ${newObject.photographers[index].country}</h2>
               <p class="id_slogan">${newObject.photographers[index].tagline}</p>
               <div class="tag-name">
                   ${tags(eachTag)}
               </div>    
-          </div>
+          </nav>
           <div class="id_btn">
               <button class="btn btn-contact"type="submit">Contactez-moi</button>               
           </div>
           <figure class="id_avatar"> 
-          <div class="avatar ">
-            <img src="./Sample Photos/Photographers ID Photos/${newObject.photographers[index].portrait}" 
-              alt="Photo of ${newObject.photographers[index].name}">
-          </div>
+            <div class="avatar">
+              <img src="./Sample Photos/Photographers ID Photos/${newObject.photographers[index].portrait}" 
+                alt="Photo of ${newObject.photographers[index].name}">
+            </div>
           </figure>
         </header>
       
       <label for="dropdown_menu">Trier par</label>
-      <select onchange="loadBySort(this.value)" class="btn dropdown" name="sort_menu" id="sort_menu">
+      <select onchange="loadBySort(this.value)" role="" class="btn dropdown" name="sort_menu" id="sort_menu">
           <option value="popular">Popularité</option>
           <option value="date">Date</option>
           <option value="title">Titre</option>
@@ -98,7 +99,6 @@ function tags(tags){
    --*/
   return `
     ${tags.map(function(tags){
-      console.log(tags);
       return `  
           <a onclick="filterTag(this)" class="tag_name test"> 
           ${tags}
@@ -133,15 +133,14 @@ function createGallery(arrGallery,isName) {
     let  likes = arrGallery[i].likes;
     var gallery = `
     <figure class="media">${sourcePath(arrGallery, i)}  
-      <figcaption id="test" class="figcaption_media">${arrGallery[i].title}     
-         <i data-like="${likes}" id="like" class="fas fa-heart"></i>
-         </figcaption>
-         <p>${arrListGallery[i].date}</p>
+      <figcaption class="figcaption_media">${arrGallery[i].title}     
+         <div class"show">${likes}</div>       
+         <div data-like="${likes}" class="like" role="button"><i class="fas fa-heart"></i></div>
+      </figcaption>
+      <p>${arrListGallery[i].date}</p>
     <figure>
      `
-
 countLike += likes;
-
 // add html block to the page
 galleryContainer.innerHTML  += gallery;
               //Function to check whether media is image or video
@@ -149,31 +148,46 @@ galleryContainer.innerHTML  += gallery;
                 if( arrGallery[i].image == null){
                   path = `"./Sample Photos/${isName}/${arrGallery[i].video}"`
                   source = `<video src=${path} type="video/mp4"> </video>`
-                  console.log(source);
                   return source
                 } else if(arrGallery[i].video == null) {
                   path = `"./Sample Photos/${isName}/${arrGallery[i].image}"`
                   source = `<img src=${path} alt="Photo of ${arrGallery[i].title}">`
-                  console.log(source);
                   return source
                 }    
             }
-
-  
   }
-  //add the total likes for each photographer
-  console.log(countLike);
+
+  //--add the total likes for each photographer  
   const total_like = document.querySelector("#total_like");
   total_like.innerText = countLike;
- return; 
-}
-//--------------------------------------------------------------------------
 
+  //-- increment like when click
+  const heart = document.querySelectorAll(".like");
+  for (let i=0; i < heart.length ; i++ ){
+    //-- access dataset from class likeand pass it to integer
+    let x = parseInt(heart[i].dataset.like);
+    //--addEventlistener to each heart
+    heart[i].addEventListener("click", () => {
+      x++;
+      //-- add each like-click to total like
+      countLike ++;
+      //--select previousElementSibling from heart[i]to change the value to (X)
+      const show  = heart[i].previousElementSibling;
+      show.innerText = x;
+      total_like.innerText = countLike;
+    },false);
+  }
+  return; 
+}
+
+//--------------------------------------------------------------------------
 
 // Function for sort when choose the option in dropdown list.
 function loadBySort(option){
+  //--set countLike to 0 eachtime onchange for not accumulate the likes
+  countLike = 0;
   if(option == "popular"){
-    const sortByLike = arrListGallery.sort(function(a,b){
+      const sortByLike = arrListGallery.sort(function(a,b){
       return a.likes-b.likes;
     });   
     console.log(sortByLike);
@@ -182,31 +196,28 @@ function loadBySort(option){
     createGallery(sortByLike,passedName);
     return;
   } else if(option == "date"){
-    const sortByDate = arrListGallery.sort(function(a,b){
-
-      return new Date(a.date).valueOf() - new Date(b.date).valueOf(2019-08-23) ; //timestamps      
+      const sortByDate = arrListGallery.sort(function(a,b){
+      return new Date(a.date).valueOf() - new Date(b.date).valueOf() ; //timestamps      
     });
-
-    console.log(sortByDate);
-  galleryContainer.innerHTML="";
-  createGallery(sortByDate,passedName);
-  return;
-  }else if(option == "title"){
-    const sortByName = arrListGallery.sort(function(a,b){
-        if(a.title.toLowerCase() < b.title.toLowerCase()) return -1; // a comes first
-        if(a.title.toLowerCase() > b.title.toLowerCase()) return 1; // b comes first
-        if(a.title.toLowerCase() = b.title.toLowerCase()) return 0; // nothing change
+    galleryContainer.innerHTML="";
+    createGallery(sortByDate,passedName);
+    return;
+  } else if(option == "title"){
+      const sortByName = arrListGallery.sort(function(a,b){
+      if(a.title.toLowerCase() < b.title.toLowerCase()) return -1; // a comes first
+      if(a.title.toLowerCase() > b.title.toLowerCase()) return 1; // b comes first
+      if(a.title.toLowerCase() = b.title.toLowerCase()) return 0; // nothing change
     });
-
     galleryContainer.innerHTML="";
     createGallery(sortByName,passedName);
     return;
   }
 }
-
 //--------------------------------------------------------------------------
 // Function for filter the tagsname 
 function filterTag(ele){
+  //--set countLike to 0 for not accumulate the like on change event
+  countLike=0;
   //ele.innerHTML = tagname to be searched : use trim()to have only string ready for search
   let searchText = ele.innerHTML;
     console.log(searchText.trim());
@@ -221,3 +232,4 @@ console.log(newArray) ;
 galleryContainer.innerHTML="";
 createGallery(newArray,passedName);
 }
+//-------------------------------------------------------------------------

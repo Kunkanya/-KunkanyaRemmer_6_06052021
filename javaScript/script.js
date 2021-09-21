@@ -7,6 +7,8 @@ const profileContainer = document.getElementById("profile_container");
 const linkPage = document.getElementById("link_profile");
 const photographerPage =document.getElementById("photographerPage");
 var newObject = [];
+const content = document.getElementById('nav_tag-main');
+
 
 //Request data from Json file
 dataRequest.open("GET", url);
@@ -29,7 +31,8 @@ dataRequest.send();
 /*Page 1: Create each photographer profile with the method map() to get the new array of each photographer, 
 plus use join() function to loop for each photographer. and return the block of HTML with 
 the expression when needed for dynamic data.*/
-      profileContainer.innerHTML = `
+
+profileContainer.innerHTML = `
         ${id.map(function (profileData) {
           return ` 
           <article class="photographer" >
@@ -61,7 +64,7 @@ function tags(tags){
   to get the new array for "tags" also use join() to loop for each tags
    */
   return `
-  <span class="tag-name">
+  <span role="list" class="tag-name">
     ${tags.map(function(tags){
       return `  
           <a href="" class="tag_name"> 
@@ -78,10 +81,7 @@ function filterTag(ele){
   //-- ele.innerHTML = tagname to be searched : use trim()to have only string ready for search
   let searchText = ele.innerHTML.toLowerCase();
       searchText = searchText.trim();
-      console.log(searchText);
-      console.log(newObject)
     var newArray = newObject.filter(function(e){
-        console.log(e.tags +"----is in-----" + e.tags.includes(searchText));
       //return  newObject.photographers[e].tags.includes(searchText);
     return e.tags.includes(searchText);
         }  
@@ -92,3 +92,8 @@ function filterTag(ele){
     createProfile(newArray);    
 }
 //--------------------------------------------------------------------------
+//--link to content will show when scrolldown the page 
+//--window.scrollY > 0 add class "sticky" to DOM content
+window.addEventListener("scroll", function(){
+   content.classList.toggle("sticky", window.scrollY > 0);
+  })
