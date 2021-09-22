@@ -39,9 +39,6 @@ ul {
     margin-top: 10px;
   }
 
-figure{
-    width : 100%;
-}
 
 header{
     display : grid;
@@ -307,3 +304,75 @@ justify-content: space-between;
 #total_like{
     margin-right: 20px;
 }
+
+/*-- LIGHTBOX MODAL--*/
+.modal{
+    background-color:white;
+    position:absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2em;
+    border : solid yellow 3px; 
+    background-color:white;
+}
+.modal_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+}
+/*-- the close button--*/
+.close{
+    position: absolute;
+    top:0;
+    right : 0;
+}
+.previous, .next, .close{
+    font-size: 4em;
+    color: var(--color_primary);
+    font-size: 4em;
+    font-weight: 500;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+}
+/*-- the previous button :position to the left--*/
+.previous {
+    position: fixed;
+    border-radius: 10px 0 0 10px ;
+    top:40%;
+    left:0;
+}
+/*-- the next button--: position to the right*/
+.next{
+    position :absolute;
+    border-radius: 0 10px 10px 0;
+    top:40%;
+    right:0;
+}
+.lightbox{
+    width: 600px;
+    height : 600px;
+    background-color: violet;
+    padding :20px;
+}
+
+.lightbox img{
+    object-fit: cover;
+}
+
+.lightbox +figcaption{
+ background-color: yellow;
+}
+
+/*-- on hover: add background color for contrast*/
+.next:hover, .previous:hover, .close:hover{
+    background-color: cadetblue;
+}
+
+.curser{
+    cursor: pointer;
+}
+/*--Modal background--*/

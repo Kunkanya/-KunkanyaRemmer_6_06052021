@@ -1,13 +1,14 @@
 //-------------------Page Photograger----------------------------//
 
-//--Variables Global
+//--GLOBAL VARIABLES
 var dataRequest = new XMLHttpRequest();
 const url = "./data.json";
 
 const locationPhotographer = document.querySelector(".location");
 const profileContainer = document.getElementById("profile_container");
 const linkPage = document.getElementById("link_profile");
-//let heart = document.querySelectorAll(".like");
+
+//--MODAL
 
 var listGallery = new Object ();
 var newObject = [];
@@ -82,6 +83,12 @@ function photographertTemplate(index){
       </select>
 
       <div class = "media_container" id="galleryContainer"></div>
+
+      <div id="myModal" class="modal" aria-label="image closeup view">
+    
+      </div>
+
+    
       <div class="like_total">
           <div class = "like_box_bottom">
             <p id="total_like"></p>  
@@ -115,6 +122,8 @@ function tags(tags){
   function gallery(photographerId , photographerName){
     var imgPath ="";
     const galleryContainer =document.getElementById("galleryContainer");
+    const myModal = document.getElementById("myModal");
+
     for (j=0; j < newObject.media.length; j++){
           isId = newObject.media[j].photographerId
           if( photographerId == isId){
@@ -132,26 +141,26 @@ function createGallery(arrGallery,isName) {
   for(i=0; i< arrGallery.length; i++){
     let  likes = arrGallery[i].likes;
     var gallery = `
-    <figure class="media">${sourcePath(arrGallery, i)}  
+      <figure onclick="openModal()" class="media">${sourcePath(arrGallery, i)}  
       <figcaption class="figcaption_media">${arrGallery[i].title}     
          <div class"show">${likes}</div>       
          <div data-like="${likes}" class="like" role="button"><i class="fas fa-heart"></i></div>
       </figcaption>
       <p>${arrListGallery[i].date}</p>
-    <figure>
+      <figure>
      `
-countLike += likes;
-// add html block to the page
-galleryContainer.innerHTML  += gallery;
+      countLike += likes;
+      // add html block to the page
+      galleryContainer.innerHTML  += gallery;
               //Function to check whether media is image or video
             function sourcePath(arrGallery){
                 if( arrGallery[i].image == null){
                   path = `"./Sample Photos/${isName}/${arrGallery[i].video}"`
-                  source = `<video src=${path} type="video/mp4"> </video>`
+                  source = `<video onclick="openModal()" src=${path} type="video/mp4"> </video>`
                   return source
                 } else if(arrGallery[i].video == null) {
                   path = `"./Sample Photos/${isName}/${arrGallery[i].image}"`
-                  source = `<img src=${path} alt="Photo of ${arrGallery[i].title}">`
+                  source = `<img onclick="openModal()" src=${path} alt="Photo of ${arrGallery[i].title}">`
                   return source
                 }    
             }
@@ -177,6 +186,9 @@ galleryContainer.innerHTML  += gallery;
       total_like.innerText = countLike;
     },false);
   }
+
+  //--call function create lightbox and pass the array of gallery
+  lightbox(arrListGallery);
   return; 
 }
 
@@ -214,7 +226,7 @@ function loadBySort(option){
   }
 }
 //--------------------------------------------------------------------------
-// Function for filter the tagsname 
+//--Function for filter the tagsname 
 function filterTag(ele){
   //--set countLike to 0 for not accumulate the like on change event
   countLike=0;
@@ -233,3 +245,29 @@ galleryContainer.innerHTML="";
 createGallery(newArray,passedName);
 }
 //-------------------------------------------------------------------------
+//--Function open lightbox modal
+
+function openModal(){
+  myModal.style.display = "block";
+}
+
+//--Function close lightbox modal
+function closeModal(){
+  myModal.style.display = "none";
+}
+
+function lightbox(gallery){
+  console.log(gallery);
+  myModal.innerHTML= `      
+  <span class="close curser" role="button" onclick="closeModal()" 
+  aria-label="button for close lightbox modal">x</span>
+  <div class="modal_content">
+    <figure onclick="openModal()" class="lightbox curser">
+    <img src="./Sample Photos/Mimi/Animals_Rainbow.jpg" alt="foto mimi">
+    </figure>          
+    <figcaption>${gallery[0].title}</figcaption>
+  <div class="previous" onclick="previousSlide()" ><</div>
+  <div onclick ="nextSlide()" class="next">></div>
+  </div>
+`
+}
