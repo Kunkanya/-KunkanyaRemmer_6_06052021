@@ -152,6 +152,7 @@ figure {
     display :flex;
     width: 100%;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
 }
 
@@ -306,23 +307,27 @@ justify-content: space-between;
 }
 
 /*-- LIGHTBOX MODAL--*/
-.modal{
+.modal, #testmodal{
+    display: none;
     background-color:white;
-    position:absolute;
+    position:fixed;
     top: 0;
+    left:0;
     width: 100%;
     height: 100%;
     padding: 2em;
     border : solid yellow 3px; 
     background-color:white;
+
 }
-.modal_content {
+#modal_content {
+    width: 100%;
+    border: solid red 1px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-self: center;
-    align-items: center;
 }
+
 /*-- the close button--*/
 .close{
     position: absolute;
@@ -352,11 +357,9 @@ justify-content: space-between;
     top:40%;
     right:0;
 }
-.lightbox{
+figure.lightbox{
     width: 600px;
-    height : 600px;
-    background-color: violet;
-    padding :20px;
+    height: 600px;
 }
 
 .lightbox img{
@@ -364,6 +367,7 @@ justify-content: space-between;
 }
 
 .lightbox +figcaption{
+    width: 600px;
  background-color: yellow;
 }
 
@@ -376,3 +380,12 @@ justify-content: space-between;
     cursor: pointer;
 }
 /*--Modal background--*/
+
+/*--Class list add to body for hidden the scrollbar when the modal is open*/
+.no-scroll{
+    overflow: hidden;
+}
+
+#testmodal{
+    background-color: blueviolet;
+}
