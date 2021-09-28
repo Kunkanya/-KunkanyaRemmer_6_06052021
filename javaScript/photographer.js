@@ -1,10 +1,7 @@
 //-------------------Page Photograger----------------------------//
-
 //--GLOBAL VARIABLES
 var dataRequest = new XMLHttpRequest();
 const url = "./data.json";
-
-
 //--GLOBAL DOM VAR
 const body = document.getElementById("body");
 const locationPhotographer = document.querySelector(".location");
@@ -20,6 +17,7 @@ var arrListGallery = [];
 var arrLightbox =[];
 var countLike = 0;
 var passedName = ""
+var currentSlideIndex = 0;
 //--Request data from Json file
 dataRequest.open("GET", url);
 dataRequest.onload = function () {
@@ -93,8 +91,8 @@ function photographertTemplate(index) {
       <span id="close-btn" class="close curser" role="button" onclick="closeModal()" 
       aria-label="button for close lightbox modal">x</span>
       <div class="previous" onclick="previousSlide()" ><</div>
-      <div onclick ="nextSlide()" class="next">></div>
-         </div>
+      <div class="next">>next</div>
+         
 
     
       <div class="like_total">
@@ -107,6 +105,8 @@ function photographertTemplate(index) {
         `
 }
 //--------------------------------------------------------------------------
+
+
 //--------------------------------------------------------------------------
 function tags(tags) {
   /*--Page 1: Crate HTML block for "tags" which is array in jsonData and object, so use method map()
@@ -151,8 +151,11 @@ function createGallery(arrGallery, isName) {
   arrLightbox = arrGallery;
   for (i = 0; i < arrGallery.length; i++) {
     let likes = arrGallery[i].likes;
+    let id = arrGallery[i].id;
+//    <a class="media curser" onclick="test(${arrGallery[i].id})">
+
     var gallery = `
-      <figure class="media curser">${sourcePath(arrGallery, i)}  
+    <figure class="media curser"><a href="#" onclick="launchModal(${id})" >${sourcePath(arrGallery, i)}</a>  
       <figcaption class="figcaption_media">${arrGallery[i].title}     
          <div class"show">${likes}</div>       
          <div data-like="${likes}" class="like" role="button"><i class="fas fa-heart"></i></div>
@@ -160,25 +163,28 @@ function createGallery(arrGallery, isName) {
       <p>${arrGallery[i].date}</p>
       <figure>
      `
+    //--add number of like from each photo to total-like
     countLike += likes;
+
     // add html block to the page
+
     galleryContainer.innerHTML += gallery;
     //Function to check whether media is image or video
-    function sourcePath(arrGallery) {
-      if (arrGallery[i].image == null) {
-        path = `"./Sample Photos/${isName}/${arrGallery[i].video}"`
-        source = `<video   src=${path} type="video/mp4"> </video>`
-        return source;
-      } else if (arrGallery[i].video == null) {
-        testId = (arrGallery[i].id);
-        console.log(testId);
-        path = `"./Sample Photos/${isName}/${arrGallery[i].image}"`
-        source = `<img onclick="test(${testId})" data-id ="${testId}"  src=${path} alt="Photo of ${arrGallery[i].title}">`
-        return source;
-      }
+      function sourcePath(arrGallery) {
+      
+        if (arrGallery[i].image == null) {
+          path = `"./Sample Photos/${isName}/${arrGallery[i].video}"`
+          source = `<video  src=${path} type="video/mp4"> </video>`
+          return source;
+        } else if (arrGallery[i].video == null) {
+          testId = (arrGallery[i].id);
+          console.log(testId);
+          path = `"./Sample Photos/${isName}/${arrGallery[i].image}"`
+          source = `<img  src=${path} alt="Photo of ${arrGallery[i].title}">`
+          return source;
+        }
     }
   }
-
   //--add the total likes for each photographer  
   const total_like = document.querySelector("#total_like");
   total_like.innerText = countLike;
@@ -198,17 +204,11 @@ function createGallery(arrGallery, isName) {
       show.innerText = x;
       total_like.innerText = countLike;
     }, false);
-  }
-
-  //--call function create lightbox and pass the array of gallery
-  //lightbox(arrGallery);
-  
-    return;
+  }  
+  return;
 }
-
 //--------------------------------------------------------------------------
-
-// Function for sort when choose the option in dropdown list.
+//--Function for sort when choose the option in dropdown list.
 function loadBySort(option) {
   //--set countLike to 0 eachtime onchange for not accumulate the likes
   countLike = 0;
@@ -259,69 +259,37 @@ function filterTag(ele) {
   createGallery(newArray, passedName);
 }
 //-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 //--FUNCTION FOR MODAL
-function openModal() {
-  const closeBtn = document.getElementById("close-btn");
-  myModal.setAttribute("aria-hidden", "false");
-  photographerPage.setAttribute("aria-hidden", "true");
-  //--add class to hide scrollbar on body 
-  body.classList.add("no-scroll");
-  closeBtn.focus();
-
-  myModal.style.display = "block";
-  //--set aria-hidden = false when modal is open
-}
-
-
-function test(x) {
+function launchModal(id) {
   //--check Id which passed from event onlclick to check which array is currentphoto
-  var currentPhoto 
-  var index = arrLightbox.map(function(a){
-      if(a.id == x){
-        currentPhoto = a;
-      } 
-    })
-
+  var currentPhoto ;
+  let indexCurrentSlide = arrLightbox.findIndex(a =>{
+    if(a.id === id){
+      // currentPhoto is now array with the passed id
+      return a.id == id, currentPhoto = a; 
+    } 
+  })
+  console.log(indexCurrentSlide)
   console.log(arrLightbox);
   console.log(currentPhoto);
   myModal.style.display = "block";
   myModal.setAttribute("aria-hidden", "false");
-  //--clear content on modal_content
-  var modelHTML = `  
-  <div id="modal_content">
-    <figure class="lightbox">          
-    <img src="./Sample Photos/${passedName}/${currentPhoto.image}" alt="">
-    <figcaption>${currentPhoto.title}</figcaption>
-    </figure>
-  </div>
-`
-  myModal.insertAdjacentHTML("beforeend", modelHTML );
-  const closeBtn = document.getElementById("close-btn");
-  photographerPage.setAttribute("aria-hidden", "true");
-  //--add class to hide scrollbar on body 
-  closeBtn.focus();
-  myModal.focus();
-  body.classList.add("no-scroll");
-}
 
-//--Function close lightbox modal
-function closeModal() {
-  myModal.style.display = "none";
-  myModal.setAttribute("aria-hidden", "true");
-  photographerPage.setAttribute("aria-hidden", "false");
-  //--remove class to hide scrollbar on body 
-  //body.classList.remove("no-scroll");
-  //--clear modalContent.innerHTML = null 
-  const modalContent = document.getElementById("modal_content");
-  if (modalContent != null) {
-    modalContent.remove();
-  }
-}
+  //--create new object by using Factory method to load lightbox currentphoto.
+  const lightboxCurrentPhoto = loadFactoryPhoto(currentPhoto, indexCurrentSlide);
+  //--now lightboxCurrentPhoto is ein object with property load() from Factory function "loadFactoryPhoto"
+  lightboxCurrentPhoto.load();
 
-
-
-//--KEYBOARD EVENT ON MODAL FORM
-window.addEventListener("keydown", e => {
+  //--AddEventListener to Prev and next button
+  const next = document.querySelector(".next");
+  const prev = document.querySelector(".previous");
+  next.addEventListener('click',nextPhoto);
+/**
+ * ADD KEYBOARD EVENT ON MODAL
+ */
+ window.addEventListener("keydown", e => {
   const keyCode = e.keyCode ? e.keyCode : e.which
   console.log(keyCode);
   if (keyCode == 27 && myModal.getAttribute("aria-hidden", "false")) {//27 = escape button
@@ -329,7 +297,92 @@ window.addEventListener("keydown", e => {
     closeModal();
   } else if (keyCode == 39 && myModal.getAttribute("aria-hidden", "false")) {//39 = arrowright button
     console.log("next", keyCode, myModal);
+    nextPhoto();    
   } else if (keyCode == 37 && myModal.getAttribute("aria-hidden", "false")) {//37 = arrowleft button
     console.log("previous", keyCode, myModal);
   }
 })
+  function nextPhoto() {
+    var nextIndex   = parseInt(indexCurrentSlide)
+    indexCurrentSlide = nextIndex + 1 ;
+
+    console.log("currentphoto array is"+ arrLightbox.length) 
+    console.log(nextIndex)
+    if (indexCurrentSlide === arrLightbox.length){
+        next.style.display = 'none'
+        next.disabled = true
+        return;
+    }else  { 
+        const lightboxCurrentPhotoNext = loadFactoryPhoto(arrLightbox[indexCurrentSlide], indexCurrentSlide);
+        lightboxCurrentPhotoNext.load();
+        console.log(indexCurrentSlide)
+        console.log(arrLightbox[indexCurrentSlide])
+      }
+    };  
+ 
+ 
+}
+          //prev.addEventListener('click', prevPhoto)   
+    //-------------------------------------------------------------------------
+
+  
+//-------------------------------------------------------------------------
+//--Factory function to return the function load() once the lightbox is open.
+function loadFactoryPhoto(arr, index){
+  return {  
+    load(){
+    console.log("lightbox array" + arr.title)
+    console.log(index);
+  
+    var modelHTMLImg = `  
+    <div id="modal_content">
+      <figure class="lightbox">          
+      <img src="./Sample Photos/${passedName}/${arr.image}" alt="">
+      <figcaption>${arr.title}</figcaption>
+      </figure>
+    </div>`
+    var modelHTMLVideo = `  
+    <div id="modal_content">
+      <figure class="lightbox">          
+      <video src="./Sample Photos/${passedName}/${arr.video}" type="video/mp4" controls> </video>
+      <figcaption>${arr.title + ":Video"}</figcaption>
+      </figure>
+    </div>  
+    `
+    //checked if media is video or image
+    const modalContent = document.getElementById("modal_content")
+    if( modalContent != null){
+      modalContent.remove();
+    }
+    if(arr.image != null){
+      myModal.insertAdjacentHTML("beforeend", modelHTMLImg );
+        console.log( "img")
+      }else if (arr.video != null){
+        myModal.insertAdjacentHTML("beforeend", modelHTMLVideo );
+        console.log(modelHTMLVideo);
+        console.log("Video")
+      }
+    const closeBtn = document.getElementById("close-btn");
+    //--set background modal to aria-hidden = true
+    photographerPage.setAttribute("aria-hidden", "true");
+    //--add class to hide scrollbar on body and focus at close button 
+    closeBtn.focus();
+    body.classList.add("no-scroll");
+      }
+    }
+}
+//-------------------------------------------------------------------------
+//--Function close lightbox modal
+function closeModal() {
+  myModal.style.display = "none";
+  myModal.setAttribute("aria-hidden", "true");
+  photographerPage.setAttribute("aria-hidden", "false");
+  //--remove class to hide scrollbar on body 
+  body.classList.remove("no-scroll");
+  //--clear modalContent.innerHTML = null 
+  const modalContent = document.getElementById("modal_content");
+  if (modalContent != null) {
+    modalContent.remove();
+  }
+}
+//------------------------------------------------------------------------

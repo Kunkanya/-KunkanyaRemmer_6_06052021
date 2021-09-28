@@ -322,6 +322,7 @@ justify-content: space-between;
 }
 #modal_content {
     width: 100%;
+    height: 100%;
     border: solid red 1px;
     display: flex;
     justify-content: center;
@@ -357,17 +358,25 @@ justify-content: space-between;
     top:40%;
     right:0;
 }
+
 figure.lightbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border : green 1px solid;
     width: 600px;
-    height: 600px;
+    height: auto;
 }
 
 .lightbox img{
     object-fit: cover;
 }
+.lightbox video{
+    width : 800px;
+    object-fit: cover;
+}
 
 .lightbox +figcaption{
-    width: 600px;
  background-color: yellow;
 }
 
