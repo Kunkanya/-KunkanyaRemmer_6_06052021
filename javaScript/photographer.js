@@ -90,7 +90,7 @@ function photographertTemplate(index) {
       <div id="myModal" class="modal" role="dialog" aria-label="image closeup view">
       <span id="close-btn" class="close curser" role="button" onclick="closeModal()" 
       aria-label="button for close lightbox modal">x</span>
-      <div class="previous" onclick="previousSlide()" ><</div>
+      <div class="previous"><</div>
       <div class="next">>next</div>
          
 
@@ -261,35 +261,47 @@ function filterTag(ele) {
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
-//--FUNCTION FOR MODAL
+//--FUNCTION LIGHTBOX
 function launchModal(id) {
+  const next = document.querySelector(".next");
+  const prev = document.querySelector(".previous");
   //--check Id which passed from event onlclick to check which array is currentphoto
   var currentPhoto ;
+  //--find the ID of currentphoto once click by passing "id"
   let indexCurrentSlide = arrLightbox.findIndex(a =>{
     if(a.id === id){
       // currentPhoto is now array with the passed id
       return a.id == id, currentPhoto = a; 
     } 
-  })
-  console.log(indexCurrentSlide)
-  console.log(arrLightbox);
-  console.log(currentPhoto);
+  }) 
+  indexCurrentSlide = parseInt(indexCurrentSlide)
   myModal.style.display = "block";
   myModal.setAttribute("aria-hidden", "false");
 
+  //--if the first or the last photo of array are clicked the previos or next button will be disabled accordingly.
+  if(indexCurrentSlide === 0){
+    prev.style.display = 'none';
+    prev.disabled = true;
+    next.style.display = 'block';
+    next.disabled = false;
+  }else if(indexCurrentSlide  === arrLightbox.length - 1){
+    next.style.display = 'none';
+    next.disabled = true;
+    prev.style.display = 'block';
+    prev.disabled = false;
+  }
   //--create new object by using Factory method to load lightbox currentphoto.
   const lightboxCurrentPhoto = loadFactoryPhoto(currentPhoto, indexCurrentSlide);
   //--now lightboxCurrentPhoto is ein object with property load() from Factory function "loadFactoryPhoto"
   lightboxCurrentPhoto.load();
 
   //--AddEventListener to Prev and next button
-  const next = document.querySelector(".next");
-  const prev = document.querySelector(".previous");
   next.addEventListener('click',nextPhoto);
+  prev.addEventListener('click',prevPhoto);
 /**
  * ADD KEYBOARD EVENT ON MODAL
  */
- window.addEventListener("keydown", e => {
+window.addEventListener("keydown", e => {
   const keyCode = e.keyCode ? e.keyCode : e.which
   console.log(keyCode);
   if (keyCode == 27 && myModal.getAttribute("aria-hidden", "false")) {//27 = escape button
@@ -300,34 +312,68 @@ function launchModal(id) {
     nextPhoto();    
   } else if (keyCode == 37 && myModal.getAttribute("aria-hidden", "false")) {//37 = arrowleft button
     console.log("previous", keyCode, myModal);
+    prevPhoto();
   }
 })
-  function nextPhoto() {
-    var nextIndex   = parseInt(indexCurrentSlide)
-    indexCurrentSlide = nextIndex + 1 ;
-
+//-------------------------------------------------------------------------
+//-- Function to call next photo
+function nextPhoto() {
+  debugger
+    var nextIndex = indexCurrentSlide + 1
     console.log("currentphoto array is"+ arrLightbox.length) 
     console.log(nextIndex)
-    if (indexCurrentSlide === arrLightbox.length){
-        next.style.display = 'none'
-        next.disabled = true
-        return;
+    //disable next button when the last photo of array 
+    if (nextIndex === arrLightbox.length-1 || nextIndex >= arrLightbox.length){
+      const lightboxCurrentPhotoPrev = loadFactoryPhoto(arrLightbox[arrLightbox.length -1], arrLightbox.length-1);
+      lightboxCurrentPhotoPrev.load();
+      next.style.display = 'none'
+      next.disabled = false
+      prev.style.display = 'block'
+      prev.disabled = true
+      // set indexcurrentSlide always to the last array.lenght-1
+      indexCurrentSlide = arrLightbox.length - 1
+      return
     }else  { 
-        const lightboxCurrentPhotoNext = loadFactoryPhoto(arrLightbox[indexCurrentSlide], indexCurrentSlide);
+      next.style.display = 'block'
+      next.disabled = false
+      prev.style.display = 'block'
+      prev.disabled = false
+      const lightboxCurrentPhotoNext = loadFactoryPhoto(arrLightbox[nextIndex], nextIndex);
         lightboxCurrentPhotoNext.load();
-        console.log(indexCurrentSlide)
-        console.log(arrLightbox[indexCurrentSlide])
+        indexCurrentSlide = nextIndex ;
+        return
       }
     };  
- 
- 
+//-------------------------------------------------------------------------
+//-- Function to call previous photo
+function prevPhoto() {
+  debugger
+  var prevIndex = indexCurrentSlide - 1;
+      if (prevIndex === 0 || indexCurrentSlide <=0){
+        prev.style.display = 'none';
+        prev.disabled = true;
+        next.style.display = 'block';
+        next.disabled = false;
+        const lightboxCurrentPhotoPrev = loadFactoryPhoto(arrLightbox[0], 0);
+          indexCurrentSlide = 0;
+          lightboxCurrentPhotoPrev.load();
+        return
+      }else  { 
+        prev.style.display = 'block';
+        prev.disabled = false
+        next.style.display = 'block';
+        next.disabled = false
+        const lightboxCurrentPhotoPrev = loadFactoryPhoto(arrLightbox[prevIndex], prevIndex);
+          lightboxCurrentPhotoPrev.load();
+        indexCurrentSlide = prevIndex
+        return
+        }
+      };  
 }
-          //prev.addEventListener('click', prevPhoto)   
-    //-------------------------------------------------------------------------
-
   
 //-------------------------------------------------------------------------
-//--Factory function to return the function load() once the lightbox is open.
+//--Factory function to return the function load() once the lightbox is open. 
+//to load currentphoto in the lightbox
 function loadFactoryPhoto(arr, index){
   return {  
     load(){
