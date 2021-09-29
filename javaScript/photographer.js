@@ -7,6 +7,9 @@ const body = document.getElementById("body");
 const locationPhotographer = document.querySelector(".location");
 const profileContainer = document.getElementById("profile_container");
 const linkPage = document.getElementById("link_profile");
+//const btnContact = document.querySelector(".btn-contact");
+const btnContact = document.getElementById("contact");
+
 //const photographerPage = document.getElementById("photographerPage")
 
 //--MODAL
@@ -68,7 +71,7 @@ function photographertTemplate(index) {
               </div>    
           </nav>
           <div class="id_btn">
-              <button class="btn btn-contact"type="submit">Contactez-moi</button>               
+              <button id="contact" class="btn btn-contact" onclick=modal_contact() type="submit">Contactez-moi</button>               
           </div>
           <figure class="id_avatar"> 
             <div class="avatar">
@@ -86,15 +89,6 @@ function photographertTemplate(index) {
       </select>
 
       <div class = "media_container" id="galleryContainer"></div>
-
-      <div id="myModal" class="modal" role="dialog" aria-label="image closeup view">
-      <span id="close-btn" class="close curser" role="button" onclick="closeModal()" 
-      aria-label="button for close lightbox modal">x</span>
-      <div class="previous"><</div>
-      <div class="next">>next</div>
-         
-
-    
       <div class="like_total">
           <div class = "like_box_bottom">
             <p id="total_like"></p>  
@@ -102,6 +96,12 @@ function photographertTemplate(index) {
           </div>
           <span>300euro/jour</span>
       </div>
+
+      <div id="myModal" class="modal" role="dialog" aria-label="image closeup view">
+      <button id="close-btn" class="close curser"  onclick="closeModal()" 
+      aria-label="button for close lightbox modal">Fermer</button>
+      <button class="previous curser"  >Précédent</button>
+      <button class="next curser" >Suivant</button>
         `
 }
 //--------------------------------------------------------------------------
@@ -303,16 +303,25 @@ function launchModal(id) {
  */
 window.addEventListener("keydown", e => {
   const keyCode = e.keyCode ? e.keyCode : e.which
+    e.preventDefault();
   console.log(keyCode);
   if (keyCode == 27 && myModal.getAttribute("aria-hidden", "false")) {//27 = escape button
     console.log(keyCode, myModal);
     closeModal();
   } else if (keyCode == 39 && myModal.getAttribute("aria-hidden", "false")) {//39 = arrowright button
     console.log("next", keyCode, myModal);
+    next.focus()
     nextPhoto();    
   } else if (keyCode == 37 && myModal.getAttribute("aria-hidden", "false")) {//37 = arrowleft button
     console.log("previous", keyCode, myModal);
+    prev.focus();
     prevPhoto();
+  } else if (keyCode == 40 && myModal.getAttribute("aria-hidden", "false")) {//40 = arrowdown button
+    next.focus();
+  }else if (keyCode == 27) {//40 = arrowdown button
+    const logo = document.querySelector(".logo")
+    alert(e.focus)
+    logo.focus();
   }
 })
 //-------------------------------------------------------------------------
@@ -412,7 +421,7 @@ function loadFactoryPhoto(arr, index){
     //--set background modal to aria-hidden = true
     photographerPage.setAttribute("aria-hidden", "true");
     //--add class to hide scrollbar on body and focus at close button 
-    closeBtn.focus();
+//    closeBtn.focus();
     body.classList.add("no-scroll");
       }
     }
@@ -432,3 +441,46 @@ function closeModal() {
   }
 }
 //------------------------------------------------------------------------
+//--PHOTOGRAPHER PAGE KEYBOARD EVENT
+window.addEventListener("keydown", e => {
+  const keyCode = e.keyCode ? e.keyCode : e.which
+    e.preventDefault();
+  console.log(keyCode);
+  if (keyCode === 27) {//27 = escape button: go back to index.html
+    location.href="index.html";
+  } else if (keyCode === 9) {//9 = tab focus on btn-contact button
+    modal_contact();
+  } else if (keyCode == 37 && myModal.getAttribute("aria-hidden", "false")) {//37 = arrowleft button
+    console.log("e");
+  }
+})
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+//--CONTACT FORM
+
+/**
+ * 
+ */
+function modal_contact(){
+    alert("eeee")
+
+    var contactHTML= `    <div id="form_contact">
+    <header>
+        <h1>Contactes-moi</h1>
+        <h2>Mimi Keel</h2>
+    </header>
+    <main>
+        <label for="firstname">Prénom</label>
+        <input type="text" name="" id="firstname" required minlength="2">
+        <label for="lastname">Nom</label>
+        <input type="text" name="" id="lastname" required minlength="2">
+        <label for="email">Email</label>
+        <input type="email" name="" id="email" required>
+        <label for="message">Votre message</label>
+        <input type="email" name="" id="message">
+    <button type="submit">Envoyer</button>        
+    </main>
+    </div>
+`
+    body.insertAdjacentHTML("beforeend", contactHTML)
+}

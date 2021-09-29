@@ -97,3 +97,29 @@ function filterTag(ele){
 window.addEventListener("scroll", function(){
    content.classList.toggle("sticky", window.scrollY > 0);
   })
+
+/**
+ * ADD KEYBOARD EVENT ON MODAL
+ * 
+ * 9 : tab
+ * 13 :enter
+ */
+ window.addEventListener("keydown", e => {
+  const keyCode = e.keyCode ? e.keyCode : e.which
+    e.preventDefault();
+  console.log(keyCode);
+  if (keyCode == 27 && myModal.getAttribute("aria-hidden", "false")) {//27 = escape button
+    console.log(keyCode, myModal);
+    closeModal();
+  } else if (keyCode == 39 && myModal.getAttribute("aria-hidden", "false")) {//39 = arrowright button
+    console.log("next", keyCode, myModal);
+    next.focus()
+    nextPhoto();    
+  } else if (keyCode == 37 && myModal.getAttribute("aria-hidden", "false")) {//37 = arrowleft button
+    console.log("previous", keyCode, myModal);
+    prev.focus();
+    prevPhoto();
+  } else if (keyCode == 40 && myModal.getAttribute("aria-hidden", "false")) {//40 = arrowdown button
+    next.focus();
+  }
+})

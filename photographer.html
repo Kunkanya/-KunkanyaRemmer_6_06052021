@@ -9,15 +9,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/photographer.css">
     <script src="https://kit.fontawesome.com/32b64e32d5.js" crossorigin="anonymous"></script>
 </head>
-<body id="body" c>
+<body id="body" >
 
     <!-- Header section   -->
     <header role="banner">
         <!-- Logo section   -->
-        <a href="/index.html" aria-label="le lien vers page d´accuiel de FishEye">
+        <a id= "back_index" href="/index.html" onclick="location.href='index.html'"aria-label="le lien vers page d´accuiel de FishEye">
             <figure>
                 <img class="logo" src="/FisheyeLogo.png" alt="FishEye Home Page">
             </figure>
@@ -26,44 +27,28 @@
     </header>
     <main>   
         <section id="photographerPage">
-               
-            <header class= "id_header">
-                <div class= "id_header-top">
-                    <h1 id="id_name">Name</h1>
-                    <p class="id_location">location</p>
-                    <p class="id_slogan">slogan</p>
-                    <div class="tag-name">
-                        <a href="" class="tag_name id_tag-name">Tagname</a>
-                    </div>    
-                </div>
-                <div class="id_btn">
-                    <button class="btn btn-contact"type="submit">Contactez-moi</button>               
-                </div>
-                <figure class="id_avatar"> 
-                  <div class="avatar "><img src="./Sample Photos/Photographers ID Photos/EllieRoseWilkens.jpg" alt="">
-                  </div>
-                </figure>
-            </header>
-        
-
-    
-    
         </section>
- <!--LIGHTBOX MODAL
-        <div id="myModal" class="modal" aria-label="image closeup view">
-            <span class="close curser" role="button" onclick="closeModal()" 
-            aria-label="button for close lightbox modal">x</span>
-            <figure class=" lightbox current_slide">
-                    <img  src="./Sample Photos/Mimi/Animals_Rainbow.jpg" alt="foto mimi">                
-                </figure>
-                
-                    <figcaption>name foto</figcaption>
-            <div class="previous" onclick="previousSlide()" ><</div>
-            <div onclick ="nextSlide()" class="next">></div>
-        </div>
- -->
     </main>
 
-     <script src="./javaScript/photographer.js"></script>    
+    <div id="form_contact">
+        <header>
+            <h1>Contactes-moi</h1>
+            <h2>Mimi Keel</h2>
+        </header>
+        <main>
+            <label for="firstname">Prénom</label>
+            <input type="text" name="" id="firstname" required minlength="2">
+            <label for="lastname">Nom</label>
+            <input type="text" name="" id="lastname" required minlength="2">
+            <label for="email">Email</label>
+            <input type="email" name="" id="email" required>
+            <label for="message">Votre message</label>
+            <input type="email" name="" id="message">
+        <button type="submit">Envoyer</button>        
+        </main>
+        </div>
+         <script src="./javaScript/photographer.js"></script>    
+
+
 </body>
 </html>
