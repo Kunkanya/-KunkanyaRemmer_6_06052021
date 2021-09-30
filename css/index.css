@@ -104,12 +104,12 @@ nav{
     margin: 1em 0;
 }
 
-h1{
+.head_photographes{
     display: grid;
     grid-column-start: 3/4;
     width: fit-content;
     position : absolute;
-    top :50px ;
+    top :30px ;
     right:1em;
     color: var(--color_primary);
     font-size: 2.3em;

@@ -213,3 +213,95 @@ figure.lightbox{
 .no-scroll{
     overflow: hidden;
 }
+
+/**--CONTACT MODAL SECTION
+*/
+#form_modal{
+    background-color: rgba(0,0,0,.5);
+    width: 100%;
+    height:100vh;
+    position: fixed;
+    top:0;
+    z-index: 30;
+    display: flex;
+    justify-content: center;
+    
+}
+#form_container{
+    margin-top: 30px;
+    width: 500px;
+    height:fit-content;
+    background-color: var(--color_secondary);
+    position: relative;
+    padding: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+
+
+.close_form{
+ position : absolute;
+    top: 0;
+    right:0;
+    border: none;
+    background-color: var(--color_secondary);
+    width: 50px;
+    height:50px;
+}
+.close_form i{
+    padding-top: 1.2em;
+    padding-right:1.5em;
+    color: white;
+    font-size: 2.5em;
+}
+
+#form_container header{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 0;
+    padding-top: 0;
+}
+#form_container h1, h2{
+    font-size: 3em;
+    font-weight: 500;
+}
+
+#contact_modal_content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 2rem;
+}
+
+#contact_modal_content label{
+    font-size: 1.5em;
+}
+
+.input{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.input input, textarea{
+    width: 100%;
+    height: 40px;
+    text-align: left;
+    border-radius: 5px;
+    border: none;
+}
+
+textarea{
+    height : 100px;
+}
+#contact_modal_content .btn-submit{
+    width: fit-content;
+    padding:1em;
+    margin-top: 1.5em;
+    text-align: center;
+    justify-self: center;
+}
+
