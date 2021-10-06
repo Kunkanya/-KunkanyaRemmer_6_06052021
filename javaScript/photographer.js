@@ -127,8 +127,6 @@ function tags(tags) {
   `
 }
 //--------------------------------------------------------------------------
-
-
 //Function create gallery for each photographer by passing parameter of 
 //array of each photographer and the name
 function gallery(photographerId, photographerName) {
@@ -397,6 +395,7 @@ function closeModal() {
    if (modalContent != null) {
      modalContent.remove();
    };
+//   location.href="photographer.html";
  };
 
     }
@@ -450,13 +449,12 @@ function loadFactoryPhoto(arr, index){
     body.classList.add("no-scroll");
       }
     }
-
   }
 //-------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
 //--PHOTOGRAPHER PAGE KEYBOARD EVENT
-/*this.addEventListener("keydown", keyboardPhotograph,);
+window.addEventListener("keydown", keyboardPhotograph,);
 function  keyboardPhotograph(e) {
   e.preventDefault();
   const keyCode = e.keyCode ? e.keyCode : e.which

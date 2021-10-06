@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/index.css">
 </head>
-
 <body id="indexPage">
     <!-- Header section   -->
     <header role="banner">
@@ -21,19 +19,34 @@
                 <img class="logo" src="/FisheyeLogo.png" alt="FishEye Home Page">
             </figure>
         </a>
-
-        <!-- Navigation bar   -->
+        <!-- Navigation bar-->
         <nav class="nav" id="head" role="navigation" aria-label="photographer categories">
             <a href="#head" id="nav_tag-main" aria-labelledby="Passer au contenu">Passer au contenu</a>
-            <ul id="tag_container" role="list">
-                <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="portrait">Portrait</a></li>
-                <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="art">Art</a></li>
-                <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="fashion">Fashion</a></li>
-                <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="architecture">Architecture</a></li>
-                <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="travel">Travel</a></li>
-                <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="sport">Sport</a></li>
-                <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="animals">Animals</a></li>
-                <li> <a href="#" onclick="filterTag(this)" class="nav_tag" id="events">Events</a></li>
+            <ul class="tag_container" role="list">
+                <li> <a href="#" onclick="filterTag(this)" class="tag_name" id="portrait">Portrait</a>
+                    <span class="sr_only">portrait</span>
+                </li>
+                <li> <a href="#" onclick="filterTag(this)" class="tag_name" id="art">Art</a>
+                    <span class="sr_only">Art</span>
+                </li>
+                <li> <a href="#" onclick="filterTag(this)" class="tag_name" id="fashion">Fashion</a>
+                    <span class="sr_only">Fashion</span>
+                </li>
+                <li> <a href="#" onclick="filterTag(this)" class="tag_name" id="architecture">Architecture</a>
+                    <span class="sr_only">Architecture</span>
+                </li>
+                <li> <a href="#" onclick="filterTag(this)" class="tag_name" id="travel">Travel</a>
+                    <span class="sr_only">Travel</span>
+                </li>
+                <li> <a href="#" onclick="filterTag(this)" class="tag_name" id="sport">Sport</a>
+                    <span class="sr_only">Sport</span>
+                </li>
+                <li> <a href="#" onclick="filterTag(this)" class="tag_name" id="animals">Animals</a>
+                    <span class="sr_only">Animals</span>
+                </li>
+                <li> <a href="#" onclick="filterTag(this)" class="tag_name" id="events">Events</a>
+                    <span class="sr_only">Events</span>
+                </li>
             </ul>
         </nav>
     </header>
@@ -42,9 +55,9 @@
         <h1 class="head_photographes">Nos photographes</h1>
         <section id="profile_container">
         </section>
-
     </main>
-    <script src="./javaScript/script.js"></script>
-</body>
+<!--<script src="./javaScript/script.js"></script>-->
+    <script src="./javaScript/index.js"></script>
 
+</body>
 </html>

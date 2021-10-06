@@ -27,6 +27,17 @@ ul {
     list-style-type: none;
   }
 
+.sr_only{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap; /* added line */
+    border: 0;
+}
 .btn{
     width: fit-content;
     height: 80px;
@@ -51,7 +62,7 @@ nav{
     align-items: center;
     position: relative;
 }
-#tag_container{
+.tag_container{
     display: flex;
     flex-direction: row;
 }
@@ -78,30 +89,26 @@ nav{
     position: fixed;
     top : 0;
 }
-.nav_tag,
 .tag_name {
     color:var(--color_primary);
     border : solid lightgray 0.5px;
     border-radius: 15px;
     width: fit-content;
-    padding : 0.5em 10px;
-    margin : 10px 3px;
     font-size: 75%;
     font-weight: bold;
-}
-
-.tag_name{
     cursor: pointer;
     border : solid 1px lightgray;
     margin : 15px 2px;
-    padding: 1px 5px;
+    padding: 3px 5px;
 }
-.nav_tag::before, .tag_name::before{
+
+ .tag_name::before{
     content: "#";
 }
 
-.tag-name{
-    margin: 1em 0;
+.tag_name:hover, .tag_name:focus{
+    color: white;
+    background: var(--color_primary     );
 }
 
 .head_photographes{
@@ -119,7 +126,6 @@ section{
     margin: 1em 0;
     padding : 1em;
     display:grid;
-    border : violet 1px solid;
 }
 #profile_container{
     grid-template-columns: repeat(3, 1fr);    
