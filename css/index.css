@@ -185,3 +185,8 @@ figcaption{
 .slogan{
     color : black;
 }
+
+.hidden{
+    background: red;
+    border : solid green 3px;
+}

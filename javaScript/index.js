@@ -1,4 +1,3 @@
-
 //var url =  "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeData.json"
 var dataRequest = new XMLHttpRequest()
 const url = "./data.json"
@@ -91,7 +90,7 @@ class Photographer {
 
   //-- Function for filter the tagsname 
 function filterTag(ele){
-  debugger
+  
   console.log(ele)
   //-- ele.innerHTML = tagname to be searched : use trim()to have only string ready for search
   let searchText = ele.innerHTML.toLowerCase();
@@ -127,4 +126,3 @@ function filterTag(ele){
 window.addEventListener("scroll", function(){
    content.classList.toggle("sticky", window.scrollY > 0);
   })
- 
