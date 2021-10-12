@@ -1,5 +1,6 @@
 const profileContainer = document.getElementById("profile_container");
 
+
 export default class Photographer {
     constructor(name, id, city, country, tags, tagline, price, portrait){
       this.name = name
@@ -13,7 +14,6 @@ export default class Photographer {
  console.log(this)  
     }
   
-
     createBanner(){    
       const photographerPage = document.getElementById("photographerPage")
 
@@ -29,7 +29,7 @@ export default class Photographer {
             </div>    
         </nav>
         <div class="id_btn">
-            <button id="contact" class="btn btn-contact" onclick=modal_contact() type="submit">Contactez-moi</button>               
+            <button id="contact" class="btn btn-contact" type="submit">Contactez-moi</button>               
         </div>
         <figure class="id_avatar"> 
           <div class="avatar">
@@ -64,12 +64,11 @@ export default class Photographer {
 }
 
 createTags(){
-  debugger
   return `
       <ul class="tag_container">
         ${this.tags.map(function(tag){
             return `  
-                    <li><a href="#" class="tag_name"> 
+                    <li><a href="#" class="tag_name" data-tag="${tag}"> 
                     ${tag}</a>
                     <span class="sr_only">${tag}</span>
                     </li>                

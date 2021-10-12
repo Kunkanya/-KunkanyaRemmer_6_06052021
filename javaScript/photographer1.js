@@ -1,5 +1,9 @@
 import Photographer from '../javaScript/class/ClassePhotographers.js'
 import Gallery from './class/Gallery.js';
+import ModalContactForm from './class/ContactModal.js';
+import validation from './class/validation.js'
+
+//import {loadFactoryPhoto} from '../javaScript/class/FactoryMedia.js'
 //-------------------Page Photograger----------------------------//
 //--GLOBAL VARIABLES
 var dataRequest = new XMLHttpRequest();
@@ -68,19 +72,89 @@ dataRequest.onload = function () {
       )
 
       photoBanner.createBanner()
-      gallery(passedId, passedName);
-
-
       //--CREATE GALLERY OF THE PHOTOGRAPHER
+      gallery(passedId, passedName);      
       }
     }      
-  return newObject;
+     //--DOM EVENT --dropdown menu
+     const dropdown = document.getElementById("sort_menu")
+     console.log(dropdown)
+     dropdown.addEventListener('change', (e)=>{
+       e.preventDefault()
+       const value = e.target.value
+       loadBySort(value)
+     })
+            
+    //--DOM EVENT --click hashtags
+    const myTags = document.querySelectorAll(".tag_name")
+    console.log(myTags)
+     myTags.forEach(myTag => 
+        myTag.addEventListener('click', (el)=>{
+          el.preventDefault()
+          //--get value attribute from data-tag when clicked
+          const tag = el.target.getAttribute("data-tag")
+          //--call function filterTag with parameter (tag)
+          filterTag(tag)
+        })
+        )
+
+    //--DOM EVENT -- open LIGHTBOX
+    const myLightbox = document.querySelectorAll(".modal_lightbox")
+    console.log(myLightbox)
+    myLightbox.forEach(lightbox =>
+      lightbox.addEventListener('click', (el)=>{
+        el.preventDefault()
+        //--get arrtibute "data-id" to obtain the id of the photo
+        const currentIdMedia = el.target.getAttribute("data-id")
+        //--call function launchModal()
+        launchModal(currentIdMedia)
+      })
+      )
+
+      //--DOM EVENT -- open modal_contact
+    var myContact = document.querySelector("#contact")
+    myContact = new ModalContactForm(passedFullName)
+    myContact.createModalContact()
+
+
+    return newObject;
   //--------------------------------------------------------------------------
 }
+
 dataRequest.send();
 
-function gallery(photographerId, photographerName) {
+//--Function for filter the tagsname 
+function filterTag(tag) {
+  //--set countLike to 0 for not accumulate the like on change event
+  countLike = 0;
+  console.log(tag)
+  var searchText = tag
+  var newArray = arrListGallery.filter(function (e) {
+    //change e.tags which is object to string 
+    var x = e.tags.toString();
+    return x === searchText;
+  });
+  console.log(newArray);
+  galleryContainer.innerHTML = "";
+  createGallery(newArray, passedName);
 
+    //--DOM EVENT -- open LIGHTBOX
+    const myLightbox = document.querySelectorAll(".modal_lightbox")
+    console.log(myLightbox)
+    myLightbox.forEach(lightbox =>
+      lightbox.addEventListener('click', (el)=>{
+        el.preventDefault()
+        //--get arrtibute "data-id" to obtain the id of the photo
+        const currentIdMedia = el.target.getAttribute("data-id")
+        //--call function launchModal()
+        launchModal(currentIdMedia)
+      })
+      )
+
+}
+//-------------------------------------------------------------------------
+
+function gallery(photographerId, photographerName) {
   var imgPath = "";
   const galleryContainer = document.getElementById("galleryContainer");
   const myModal = document.getElementById("myModal");
@@ -93,14 +167,13 @@ function gallery(photographerId, photographerName) {
       arrListGallery.push(listGallery);
     };
   };
-  createGallery(arrListGallery, photographerName)
-  
+  createGallery(arrListGallery, photographerName)  
   return arrListGallery;
 }
-
 //--------------------------------------------------------------------------
 //--Function create gallery ba passing param an array of gallery and photographer's name
 function createGallery(arrListGallery,photographerName){
+  arrLightbox = arrListGallery
   arrListGallery.map(function(arr){  
     const photographerGallery = new Gallery(
       photographerName,
@@ -123,13 +196,14 @@ function createGallery(arrListGallery,photographerName){
       var source = "";
       var countLike = 0;
       if (arr.video != null) {
-        debugger
         path = `"./Sample Photos/${photographerName}/${arr.video}"`
-        source = `<video  src=${path} type="video/mp4"> </video>`
+        source = `<video  src=${path} type="video/mp4" 
+                  class="modal_lightbox" data-id="${arr.id}"> </video>`
         return source;
       } else if (arr.image != null) {
         path = `"./Sample Photos/${photographerName}/${arr.image}"`
-        source = `<img  src=${path} alt="Photo of ${arr.title}">`
+        source = `<img  src=${path} alt="Photo of ${arr.title}"
+        class="modal_lightbox" data-id="${arr.id}">`
         return source;
       }    
     }
@@ -160,15 +234,6 @@ function createGallery(arrListGallery,photographerName){
 }
 //--------------------------------------------------------------------------
 
-const dropdown = document.getElementById("sort_menu")
-console.log(dropdown)
-const sss = document.getElementById("sort_menu")
-sss.addEventListener('change', alert('1'))
-dropdown.addEventListener('change', (e)=>{
-  const value = e.target.value
-  console.log(value)
-  loadBySort(value)
-})
 //--Function for sort when choose the option in dropdown list.
 function loadBySort(option) {
   //--set countLike to 0 eachtime onchange for not accumulate the likes
@@ -201,3 +266,193 @@ function loadBySort(option) {
   }
 }
 //--------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//--FUNCTION LIGHTBOX
+function launchModal(id) {
+  const next = document.querySelector(".next");
+  const prev = document.querySelector(".previous");
+  const close = document.querySelector(".close")
+  //--check Id which passed from event onlclick to check which array is currentphoto
+  var currentPhoto = [];
+  debugger
+  let idTarget = parseInt(id)    
+  //--find the ID of currentphoto once click by passing "id"
+  let indexCurrentSlide = arrLightbox.findIndex(a =>{
+    if(a.id === idTarget){
+      // currentPhoto is now array with the passed id
+      return a.id === id, currentPhoto = a; 
+    } 
+  }); 
+      indexCurrentSlide = parseInt(indexCurrentSlide);
+      myModal.style.display = "block";
+      myModal.setAttribute("aria-hidden", "false");
+      //--if the first or the last photo of array are clicked the previos or next button will be disabled accordingly.
+      if(indexCurrentSlide === 0){
+        prev.style.display = 'none';
+        prev.disabled = true;
+        next.style.display = 'block';
+        next.disabled = false;
+      }else if(indexCurrentSlide  === arrLightbox.length - 1){
+        next.style.display = 'none';
+        next.disabled = true;
+        prev.style.display = 'block';
+        prev.disabled = false;
+      }
+      //--create new object by using Factory method to load lightbox currentphoto.
+      const lightboxCurrentPhoto = loadFactoryPhoto(currentPhoto, indexCurrentSlide);
+      console.log(currentPhoto)
+      console.log(indexCurrentSlide)
+      //--now lightboxCurrentPhoto is ein object with property load() from Factory function "loadFactoryPhoto"
+      lightboxCurrentPhoto.load();
+
+      //--AddEventListener to Prev , next and close button
+      next.addEventListener('click',nextPhoto);
+      prev.addEventListener('click',prevPhoto);
+      close.addEventListener('click', closeModal)
+/**
+ * ADD KEYBOARD EVENT ON MODAL
+ */
+      window.addEventListener("keydown", keyboardLightbox);
+
+      function keyboardLightbox(e){
+        const keyCode = e.keyCode ? e.keyCode : e.which
+          e.preventDefault();
+        console.log(keyCode);
+        if (keyCode == 27 && myModal.getAttribute("aria-hidden", "false")) {//27 = escape button
+          console.log(keyCode, myModal);
+          closeModal();
+        } else if (keyCode == 39 && myModal.getAttribute("aria-hidden", "false")) {//39 = arrowright button
+          console.log("next", keyCode, myModal);
+          next.focus()
+          nextPhoto();    
+        } else if (keyCode == 37 && myModal.getAttribute("aria-hidden", "false")) {//37 = arrowleft button
+          console.log("previous", keyCode, myModal);
+          prev.focus();
+          prevPhoto();
+        } else if (keyCode == 40 && myModal.getAttribute("aria-hidden", "false")) {//40 = arrowdown button
+          next.focus();
+        }else if (keyCode == 27) {//40 = arrowdown button
+          const logo = document.querySelector(".logo")
+          alert(e.focus)
+          logo.focus();
+        }
+      }
+    //-------------------------------------------------------------------------
+    //-- Function to call next photo
+    function nextPhoto() {
+        var nextIndex = indexCurrentSlide + 1
+        console.log("currentphoto array is"+ arrLightbox.length) 
+        console.log(nextIndex)
+        //disable next button when the last photo of array 
+        if (nextIndex === arrLightbox.length-1 || nextIndex >= arrLightbox.length){
+          const lightboxCurrentPhotoPrev = loadFactoryPhoto(arrLightbox[arrLightbox.length -1], arrLightbox.length-1);
+          lightboxCurrentPhotoPrev.load();
+          next.style.display = 'none'
+          next.disabled = false
+          prev.style.display = 'block'
+          prev.disabled = true
+          // set indexcurrentSlide always to the last array.lenght-1
+          indexCurrentSlide = arrLightbox.length - 1
+          return
+        }else  { 
+          next.style.display = 'block'
+          next.disabled = false
+          prev.style.display = 'block'
+          prev.disabled = false
+          const lightboxCurrentPhotoNext = loadFactoryPhoto(arrLightbox[nextIndex], nextIndex);
+            lightboxCurrentPhotoNext.load();
+            indexCurrentSlide = nextIndex ;
+            return
+          }
+        };  
+    //-------------------------------------------------------------------------
+    //-- Function to call previous photo
+    function prevPhoto() {
+      var prevIndex = indexCurrentSlide - 1;
+      if (prevIndex === 0 || indexCurrentSlide <=0){
+        prev.style.display = 'none';
+        prev.disabled = true;
+        next.style.display = 'block';
+        next.disabled = false;
+        const lightboxCurrentPhotoPrev = loadFactoryPhoto(arrLightbox[0], 0);
+          indexCurrentSlide = 0;
+          lightboxCurrentPhotoPrev.load();
+        return
+      }else  { 
+        prev.style.display = 'block';
+        prev.disabled = false
+        next.style.display = 'block';
+        next.disabled = false
+        const lightboxCurrentPhotoPrev = loadFactoryPhoto(arrLightbox[prevIndex], prevIndex);
+          lightboxCurrentPhotoPrev.load();
+        indexCurrentSlide = prevIndex
+        return
+        }
+      };  
+      //--Function close lightbox modal
+function closeModal() {
+  //--remove keyboardEvent for lightbox when close
+   window.removeEventListener("keydown", keyboardLightbox);
+   myModal.style.display = "none";
+   myModal.setAttribute("aria-hidden", "true");
+   photographerPage.style.display="block";
+   photographerPage.setAttribute("aria-hidden", "false");
+   //--remove class to hide scrollbar on body 
+   body.classList.remove("no-scroll");
+   //--clear modalContent.innerHTML = null 
+   const modalContent = document.getElementById("modal_content");
+   if (modalContent != null) {
+     modalContent.remove();
+     location.reload()
+   };
+//   location.href="photographer.html";
+  };
+
+    }
+/**END LAUNCHMODAL FUNCTION */
+//-------------------------------------------------------------------------
+function loadFactoryPhoto(arr, index){
+  return {  
+    load(){
+    console.log("lightbox array" + arr.title)
+    console.log(index);
+  
+    var modelHTMLImg = `  
+    <div id="modal_content">
+      <figure class="lightbox">          
+      <img src="./Sample Photos/${passedName}/${arr.image}" alt="">
+      <figcaption>${arr.title}</figcaption>
+      </figure>
+    </div>`
+    var modelHTMLVideo = `  
+    <div id="modal_content">
+      <figure class="lightbox">          
+      <video src="./Sample Photos/${passedName}/${arr.video}" type="video/mp4" controls> </video>
+      <figcaption>${arr.title + ":Video"}</figcaption>
+      </figure>
+    </div>  
+    `
+    //checked if media is video or image
+    const modalContent = document.getElementById("modal_content")
+    if( modalContent != null){
+      modalContent.remove();
+    }
+    if(arr.image != null){
+      myModal.insertAdjacentHTML("beforeend", modelHTMLImg );
+        console.log( "img")
+      }else if (arr.video != null){
+        myModal.insertAdjacentHTML("beforeend", modelHTMLVideo );
+        console.log(modelHTMLVideo);
+        console.log("Video")
+      }
+    const closeBtn = document.getElementById("close-btn");
+    //--set background modal to aria-hidden = true
+    photographerPage.setAttribute("aria-hidden", "true");
+    //--add class to hide scrollbar on body and focus at close button 
+//    closeBtn.focus();
+    body.classList.add("no-scroll");
+      }
+    }
+  }
+//-------------------------------------------------------------------------
+

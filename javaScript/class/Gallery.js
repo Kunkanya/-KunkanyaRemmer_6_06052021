@@ -17,7 +17,7 @@ export default class Gallery {
       const galleryContainer = document.getElementById("galleryContainer");
 
       var gallery = `
-      <figure class="media curser"><a href="#" onclick="launchModal(${this.id})">${this.media}</a>  
+      <figure class="media curser"><a href="#" role="le lien vers lightbox">${this.media}</a>  
         <figcaption class="figcaption_media">${this.title}     
            <div class"show">${this.likes}</div>       
            <div data-like="${this.likes}" class="like" role="button"><i class="fas fa-heart"></i></div>
