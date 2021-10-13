@@ -61,6 +61,8 @@ export default function validation(e){
         console.log("Message : " + message.value)
         
         alert ("close contac_form")
-        
+ 
+
+
 }
  

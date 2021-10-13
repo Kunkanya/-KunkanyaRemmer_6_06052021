@@ -11,7 +11,7 @@ export default class ModalContactForm{
                <h1>Contactez-moi</h1>
                <h2>${this.name}</h2>
            </header>
-           <button id="closeModalForm" class="close_form curser" onclick="closeContactModal()">
+           <button id="closeModalForm" class="close_form curser">
              X
            </button>
            
@@ -44,6 +44,7 @@ export default class ModalContactForm{
      `
          body.insertAdjacentHTML("beforeend", contactHTML);
 
+       
          const validationBtn = document.getElementById("validate")
          validationBtn.addEventListener('click', (e)=>{
              e.preventDefault()

@@ -29,7 +29,7 @@ export default class Photographer {
             </div>    
         </nav>
         <div class="id_btn">
-            <button id="contact" class="btn btn-contact" type="submit">Contactez-moi</button>               
+            <button id="contact" class="btn btn-contact curser" type="submit">Contactez-moi</button>               
         </div>
         <figure class="id_avatar"> 
           <div class="avatar">

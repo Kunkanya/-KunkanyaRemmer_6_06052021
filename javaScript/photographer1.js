@@ -17,6 +17,7 @@ const linkPage = document.getElementById("link_profile");
 const btnContact = document.getElementById("contact");
 const logo= document.getElementById("back_index");
 
+
 //const photographerPage = document.getElementById("photographerPage")
 
 //--MODAL
@@ -112,9 +113,18 @@ dataRequest.onload = function () {
       )
 
       //--DOM EVENT -- open modal_contact
-    var myContact = document.querySelector("#contact")
-    myContact = new ModalContactForm(passedFullName)
-    myContact.createModalContact()
+      var myContact = document.querySelector("#contact")
+      myContact.addEventListener('click', (e)=>{
+        e.preventDefault()
+        launchContactModal()
+
+
+
+  
+
+      
+      })
+
 
 
     return newObject;
@@ -123,6 +133,51 @@ dataRequest.onload = function () {
 
 dataRequest.send();
 
+function launchContactModal(){
+  var myContact = document.querySelector("#contact")
+  myContact = new ModalContactForm(passedFullName)
+  myContact.createModalContact()
+
+  const firstname = document.getElementById("firstname")
+  firstname.focus()
+
+
+  const closeContactBtn = document.getElementById("closeModalForm")
+  closeContactBtn.addEventListener('click', (e)=>{
+    closeModalForm()
+  })
+
+  function closeModalForm(){
+    const contactModal = document.getElementById("form_modal")
+    contactModal.style.display ="none"
+    window.removeEventListener("keydown", keyboardContactForm);
+  }
+  
+//window.addEventListener('keydown',keyboardContactForm)
+    function keyboardContactForm(e){
+    const keyCode = e.keyCode ? e.keyCode : e.which
+      e.preventDefault();
+    console.log(keyCode);
+    if (keyCode == 27) {//27 = escape button
+      console.log(keyCode);
+      closeModalForm();
+    } else if (keyCode === 90) {//39 = arrowright button
+         const inputs = document.getElementsByTagName("input")
+         console.log(inputs.length) 
+         for (const input of inputs){
+           input.focus()
+         }
+    
+    } else if (keyCode == 37 && myModal.getAttribute("aria-hidden", "false")) {//37 = arrowleft button
+      console.log("previous", keyCode, myModal);
+      prev.focus();
+      prevPhoto();
+    } else if (keyCode == 40 && myModal.getAttribute("aria-hidden", "false")) {//40 = arrowdown button
+      next.focus();
+    }
+  }
+  
+}
 //--Function for filter the tagsname 
 function filterTag(tag) {
   //--set countLike to 0 for not accumulate the like on change event
