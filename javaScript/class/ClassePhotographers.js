@@ -39,12 +39,14 @@ export default class Photographer {
         </figure>
       </header>
 
+      <div class="dropdown_container">
       <label for="dropdown_menu">Trier par</label>
-      <select role="" class="btn dropdown" name="sort_menu" id="sort_menu">
+      <select class="btn dropdown" name="sort_menu" id="sort_menu">
           <option value="popular">Popularité</option>
           <option value="date">Date</option>
           <option value="title">Titre</option>
       </select>
+      </div>
 
         <div class = "media_container" id="galleryContainer"></div>
         <div class="like_total">

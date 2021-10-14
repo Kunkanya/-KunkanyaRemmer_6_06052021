@@ -1,4 +1,8 @@
 
+main{
+    margin :  0 1em 1em 1em;
+}
+
 /*photographer.html*/
 #id_name{
     position: static;
@@ -48,26 +52,21 @@
 }
 
 .media_container{
-    border : solid red 2px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     row-gap: 2em;
     position: relative;
 }
-.media{
-    border : solid green 1px;
-}
 
 .media  img{
-    max-width : 350px;
+    width : 350px;
     height: 300px;
     border-radius: 5px;
     object-fit: cover;    
 }
 .media video{
-    border : red solid 2px;
-    width : 350px;
+        width : 350px;
     height: 300px;
     border-radius: 5px;
     object-fit: cover;    
@@ -77,16 +76,23 @@
     border : solid green 1px;
     display: inline-flex;
     padding : 10px 0;
-justify-content: space-between;
-    font-size: 1.3em;
+    justify-content: space-between;
+    font-size: 1em;
     font-weight: 500;
     width : 350px;
     position: relative;
     color : var(--color_primary);
 }
+.show{
+    display: inline-flex;
+    padding-left: 20px;
+}
+.show i{
+    margin-left: 10px;
+}
 
 .figcaption_media p{
-    color :black
+    color :block
 }
 
 .figcaption_media i{
@@ -109,10 +115,6 @@ justify-content: space-between;
     cursor: pointer;
 }
 
-.show_like{
-    background-color: chartreuse;
-    border : solid blue 1px;
-}
 
 .like_box_bottom{
     width: fit-content;
@@ -305,3 +307,26 @@ textarea{
     justify-self: center;
 }
 
+.btn-submit:focus , button:focus{
+    border : white 5px solid;
+}
+
+*:focus{
+    border : gray 7px solid
+}
+
+.dropdown_container{
+    display: flex;
+    align-items: center;
+    margin: 1em;
+}
+
+.dropdown_container label{
+    font-size: 1.5em;
+    padding-right: 1em;
+    font-weight: 500;
+}
+
+.tag_container{
+    padding-top: 1em;;
+}

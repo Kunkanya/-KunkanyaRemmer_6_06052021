@@ -18,23 +18,23 @@ export default class ModalContactForm{
            <form name="myForm" action="#" id= "contact_modal_content" onsubmit="return validation()" method="GET">
                <div class="input">
                  <label for="firstname">Prénom</label>
-                 <input type="text" name="firstname" id="firstname" minlength="2">
+                 <input type="text" name="firstname" id="firstname" minlength="2" placeholder="Firstname">
                  <small></small>
                </div>
                <div class="input">
                  <label for="lastname">Nom</label>
-                 <input type="text" name="lastname" id="lastname" minlength="2">
+                 <input type="text" name="lastname" id="lastname" minlength="2" placeholder="Lastname">
                  <small></small>
                </div>
                <div class="input">
                  <label for="email">Email</label>
-                 <input type="email" name="email" id="email" required>
+                 <input type="email" name="email" id="email"  required>
                  <small></small>
                </div>
      
                <div class="input">
                <label for="message">Votre message</label>
-               <textarea name="message" id="message"></textarea>
+               <textarea name="message" id="message" placeholder="text here"></textarea>
                </div>
                <input type="submit" id="validate" class="btn btn-submit" value="Envoyer">        
            </form>
