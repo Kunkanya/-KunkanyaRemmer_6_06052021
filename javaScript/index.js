@@ -40,7 +40,7 @@ class Photographer {
     this.tags = tags // array of tags
     this.tagline = tagline
     this.price = price
-    this.portrait = `../Sample Photos/Photographers ID Photos/${portrait}` 
+    this.portrait = `./Sample Photos/Photographers ID Photos/${portrait}` 
   
     console.log (this.portrait)
   }
