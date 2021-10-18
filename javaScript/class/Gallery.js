@@ -19,15 +19,15 @@ export default class Gallery {
       var gallery = `
       <figure class="media curser"><a href="#" data-id="${this.id}" role="le lien vers lightbox">${this.media}</a>  
         <figcaption class="figcaption_media">${this.title}
-        <div class="show">     
+          <div class="show">     
            <p>${this.likes}</p>       
            <div data-like="${this.likes}" class="like" role="button">
             <i class="fas fa-heart"></i>
            </div>
-       </div>    
+          </div>    
         </figcaption>
         <p>${this.date}</p>
-        <figure>
+      </figure>
        `
        galleryContainer.innerHTML += gallery
       }

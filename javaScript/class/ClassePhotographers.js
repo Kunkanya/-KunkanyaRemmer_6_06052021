@@ -31,11 +31,9 @@ export default class Photographer {
         <div class="id_btn">
             <button id="contact" class="btn btn-contact curser" type="submit">Contactez-moi</button>               
         </div>
-        <figure class="id_avatar"> 
-          <div class="avatar">
+        <figure class=" avatar"> 
             <img src="${this.portrait}" 
               alt="Photo of ${this.name}">
-          </div>
         </figure>
       </header>
 
