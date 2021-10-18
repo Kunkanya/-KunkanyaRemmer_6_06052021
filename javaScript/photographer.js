@@ -88,7 +88,7 @@ dataRequest.onload = function () {
        const value = e.target.value
        loadBySort(value)
      })
-            
+         
     //--DOM EVENT --click hashtags
     const myTags = document.querySelectorAll(".tag_name")
     console.log(myTags)
@@ -168,15 +168,15 @@ function filterTag(tag) {
   countLike = 0;
   console.log(tag)
   var searchText = tag
-  var newArray = arrListGallery.filter(function (e) {
-    //change e.tags which is object to string 
+ var newArray = arrListGallery.filter(function (e) {
+ // arrListGallery = arrListGallery.filter(function (e) {  
+ //change e.tags which is object to string 
     var x = e.tags.toString();
     return x === searchText;
   });
   console.log(newArray);
   galleryContainer.innerHTML = "";
   createGallery(newArray, passedName);
-
 }
 
 //-------------------------------------------------------------------------
@@ -291,27 +291,28 @@ function createGallery(arrListGallery,photographerName){
 //--------------------------------------------------------------------------
 //--Function for sort when choose the option in dropdown list.
 function loadBySort(option) {
+
   //--set countLike to 0 eachtime onchange for not accumulate the likes
   countLike = 0;
   if (option == "popular") {
+    console.log(arrListGallery)
     const sortByLike = arrListGallery.sort(function (a, b) {
-      return  b.likes -a.likes ;
+        return  b.likes -a.likes ;
     });
-    console.log(sortByLike);
     // set container for gallery = "" and call the function to create a new gallery sorted by likes
     galleryContainer.innerHTML = "";
     createGallery(sortByLike, passedName);
     return;
   } else if (option == "date") {
     const sortByDate = arrListGallery.sort(function (a, b) {
-      return new Date(a.date).valueOf() - new Date(b.date).valueOf(); //timestamps      
+        return new Date(a.date).valueOf() - new Date(b.date).valueOf(); //timestamps      
     });
     galleryContainer.innerHTML = "";
     createGallery(sortByDate, passedName);
     return;
   } else if (option == "title") {
     const sortByName = arrListGallery.sort(function (a, b) {
-      if (a.title.toLowerCase() < b.title.toLowerCase()) return -1; // a comes first
+        if (a.title.toLowerCase() < b.title.toLowerCase()) return -1; // a comes first
       if (a.title.toLowerCase() > b.title.toLowerCase()) return 1; // b comes first
       if (a.title.toLowerCase() = b.title.toLowerCase()) return 0; // nothing change
     });

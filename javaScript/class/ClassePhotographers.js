@@ -10,7 +10,7 @@ export default class Photographer {
       this.tags = tags // array of tags
       this.tagline = tagline
       this.price = price
-      this.portrait = `../Sample Photos/Photographers ID Photos/${portrait}` 
+      this.portrait = `./Sample Photos/Photographers ID Photos/${portrait}` 
  console.log(this)  
     }
   
@@ -40,13 +40,14 @@ export default class Photographer {
       </header>
 
       <div class="dropdown_container">
-      <label for="dropdown_menu">Trier par</label>
-      <select class="btn dropdown" name="sort_menu" id="sort_menu">
-          <option value="popular">Popularité</option>
+        <label for="sort_menu">Trier par</label>
+        <select class="btn dropdown" name="sort_menu" id="sort_menu">
+          <option value="popular" selected>Popularité</option>
           <option value="date">Date</option>
           <option value="title">Titre</option>
-      </select>
+        </select>
       </div>
+    
 
         <div class = "media_container" id="galleryContainer"></div>
         <div class="like_total">
@@ -58,7 +59,7 @@ export default class Photographer {
         </div>
 
         <div id="myModal" class="modal" role="dialog" aria-label="image closeup view">
-        <button id="close-btn" class="close curser"  " 
+        <button id="close-btn" class="close curser"  
         aria-label="button for close lightbox modal">Fermer</button>
         <button class="previous curser"  >Précédent</button>
         <button class="next curser" >Suivant</button>
@@ -80,7 +81,26 @@ createTags(){
       `
 }
 
+dropdown(){
+
+}
+dropdown_select(){
+  /*
+  <div class="dropdown_container">
+  <label for="sort_menu">Trier par</label>
+  <select class="btn dropdown" name="sort_menu" id="sort_menu">
+    <option value="popular" selected>Popularité</option>
+    <option value="date">Date</option>
+    <option value="title">Titre</option>
+  </select>
+  <i class="fas fa-angle-up dropdown_arrow"></i>
+</div>
+*/
+
+}
     }
     
+
+
     
   

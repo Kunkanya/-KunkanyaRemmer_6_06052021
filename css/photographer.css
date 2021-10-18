@@ -312,21 +312,40 @@ textarea{
 }
 
 *:focus{
-    border : gray 7px solid
+    border : WHITE 5px solid
 }
 
 .dropdown_container{
+    position: relative;
+
+    height: auto;
     display: flex;
     align-items: center;
-    margin: 1em;
+    margin : 1em 1em;
 }
 
 .dropdown_container label{
     font-size: 1.5em;
-    padding-right: 1em;
+    margin-right: 1em;
     font-weight: 500;
 }
+.dropdown{
+    width: 200px;
+    height: 50px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
 
+.dropdown_arrow{
+    position :absolute;
+    right:0;
+    padding: 1em;
+    pointer-events: none;
+    background-color: sandybrown;
+}
+.dropdown_arrow:hover{
+    transform : rotate(180deg)
+}
 .tag_container{
     padding-top: 1em;;
 }
