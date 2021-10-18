@@ -47,7 +47,7 @@ export default class Photographer {
           <option value="title">Titre</option>
         </select>
       </div>
-    
+
 
         <div class = "media_container" id="galleryContainer"></div>
         <div class="like_total">
@@ -95,6 +95,18 @@ dropdown_select(){
   </select>
   <i class="fas fa-angle-up dropdown_arrow"></i>
 </div>
+
+
+      <div class="dropdown_container">
+        <h2>Trier par</h2>
+        <ul class="dropdown" role="button">
+            <li class="btn">Populatrité</li>
+            <li>Date</li>
+            <li>Title</li>
+        </ul>
+      </div >
+
+
 */
 
 }

@@ -73,7 +73,6 @@ main{
 }
 
 .figcaption_media{
-    border : solid green 1px;
     display: inline-flex;
     padding : 10px 0;
     justify-content: space-between;
