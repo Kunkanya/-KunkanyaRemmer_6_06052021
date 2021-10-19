@@ -9,32 +9,32 @@ export default class ModalContactForm{
           <div id="form_container">   
           <header>
                <h1>Contactez-moi</h1>
-               <h2>${this.name}</h2>
+               <h2 aria-label="Contactez ${this.name}">${this.name}</h2>
            </header>
-           <button id="closeModalForm" class="close_form curser">
+           <button id="closeModalForm" class="close_form curser" aria-label="Fermer le modal button">
              X
            </button>
            
            <form name="myForm" action="#" id= "contact_modal_content" onsubmit="return validation()" method="GET">
                <div class="input">
                  <label for="firstname">Prénom</label>
-                 <input type="text" name="firstname" id="firstname" minlength="2" placeholder="Firstname">
+                 <input type="text" name="firstname" id="firstname" minlength="2" placeholder="Prénom" aria-labelledby="firstname">
                  <small></small>
                </div>
                <div class="input">
                  <label for="lastname">Nom</label>
-                 <input type="text" name="lastname" id="lastname" minlength="2" placeholder="Lastname">
+                 <input type="text" name="lastname" id="lastname" minlength="2" placeholder="Lastname" aria-labelledby="lastname">
                  <small></small>
                </div>
                <div class="input">
                  <label for="email">Email</label>
-                 <input type="email" name="email" id="email"  required>
+                 <input type="email" name="email" id="email" aria-labelledby="email"  required>
                  <small></small>
                </div>
      
                <div class="input">
                <label for="message">Votre message</label>
-               <textarea name="message" id="message" placeholder="text here"></textarea>
+               <textarea name="message" id="message" placeholder="text here" aria-labelledby="message"></textarea>
                </div>
                <input type="submit" id="validate" class="btn btn-submit" value="Envoyer">        
            </form>

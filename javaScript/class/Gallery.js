@@ -17,16 +17,16 @@ export default class Gallery {
       const galleryContainer = document.getElementById("galleryContainer");
 
       var gallery = `
-      <figure class="media curser"><a href="#" data-id="${this.id}" role="le lien vers lightbox">${this.media}</a>  
+      <figure class="media curser"><a href="#" data-id="${this.id}" role="le lien vers lightbox de ${this.title}">${this.media}  
         <figcaption class="figcaption_media">${this.title}
           <div class="show">     
            <p>${this.likes}</p>       
-           <div data-like="${this.likes}" class="like" role="button">
+           <div data-like="${this.likes}" class="like" role="button" aria-label="bouton pour incrementer les likes">
             <i class="fas fa-heart"></i>
            </div>
           </div>    
-        </figcaption>
-        <p>${this.date}</p>
+          </figcaption>
+        <p>${this.date}</p></a>
       </figure>
        `
        galleryContainer.innerHTML += gallery

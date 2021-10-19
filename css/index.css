@@ -165,6 +165,7 @@ figure {
 
 figcaption{
     font-size: 2em;
+    font-weight: bold;
     color : var(--color_secondary);
 }
 .details{
@@ -175,16 +176,20 @@ figcaption{
 }
 
 .location{
-    font-size: 100%;
-    color : var(--color_secondary);
+    font-size: 1.5em;
+    font-weight: 600;
+    color : var(--color_primary);
 }
 .price, .slogan{
-    color : lightgray;
+    color :black;
+    font-weight: 600;
     font-size: 70%;
     margin-top: 0.5em;
 }
 .slogan{
-    color : black;
+    color : #424140;
+    font-size: 1em;
+    font-weight: 700;
 }
 
 .hidden{

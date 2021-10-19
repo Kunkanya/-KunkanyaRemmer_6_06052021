@@ -1,0 +1,22 @@
+{
+  "name": "kunkanyaremmer_6_06052021",
+  "version": "1.0.0",
+  "description": "FishEye project: Openclassrom P6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kunkanya/-KunkanyaRemmer_6_06052021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kunkanya/-KunkanyaRemmer_6_06052021/issues"
+  },
+  "homepage": "https://github.com/Kunkanya/-KunkanyaRemmer_6_06052021#readme",
+  "devDependencies": {
+    "eslint": "^8.0.1"
+  }
+}

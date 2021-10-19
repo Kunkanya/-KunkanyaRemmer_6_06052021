@@ -374,7 +374,7 @@ textarea{
 }
 
 @media screen and (max-width : 425px) {
-    .dropdown_container, .like_total{
+     .like_total{
         display: none;
     }
     header{
@@ -432,6 +432,17 @@ textarea{
     }
     .tag_name{
         padding: 1px 5px;
+    }
+    /****************************************************/
+    /****************************************************/
+    /*Dropdown Menu*/
+    .dropdown_container label{
+        font-size: 1em;
+    }
+    .dropdown{
+        width: 150px;
+        height: 30px;
+        font-size: 1em;
     }
     /****************************************************/
     /****************************************************/

@@ -50,16 +50,16 @@ class Photographer {
      let createProfileHTML = ` 
       <article class="photographer" >
         <span class="sr_only">${this.name}</span>
-        <a href="./photographer.html?id=${this.id}" id="link_profile">
+        <a href="./photographer.html?id=${this.id}" id="link_profile" aria-label="Portrait de ${this.name}">
             <figure>
               <div class="avatar"><img src="${this.portrait}"
-                        alt="Photo of${this.portrait}">
+                        alt="Image of ${this.portrait}">
               </div>
               <figcaption id="name">${this.name}</figcaption>
             </figure>
           </a>
           <div class="details">
-            <p class="location">${this.city} , ${this.country}</P>
+            <h2 class="location">${this.city} , ${this.country}</h2>
             <small class="slogan">${this.tagline}</small>
             <p class="price">${this.price}€/jour</p>
           </div>

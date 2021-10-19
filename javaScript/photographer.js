@@ -225,11 +225,12 @@ function createGallery(arrListGallery,photographerName){
       if (arr.video != null) {
         path = `"./Sample Photos/${photographerName}/${arr.video}"`
         source = `<video  src=${path} type="video/mp4" 
-                  class="modal_lightbox" data-id="${arr.id}"> </video>`
+                  title= "Video de ${arr.video}"
+                  class="modal_lightbox" data-id="${arr.id}" aria-label="video de ${arr.video}"></video>`
         return source;
       } else if (arr.image != null) {
         path = `"./Sample Photos/${photographerName}/${arr.image}"`
-        source = `<img  src=${path} alt="Photo of ${arr.title}"
+        source = `<img  src=${path} alt="Photo de ${arr.title}"
         class="modal_lightbox" data-id="${arr.id}">`
         return source;
       }    
@@ -510,4 +511,5 @@ function loadFactoryPhoto(arr, index){
     }
   }
 //-------------------------------------------------------------------------
+
 
