@@ -48,19 +48,15 @@ export default class Photographer {
 
 
         <div class = "media_container" id="galleryContainer"></div>
-        <div class="like_total">
-            <div class = "like_box_bottom">
-              <p id="total_like"></p>  
-              <i class="fas fa-heart"></i>
-            </div>
+            <div class="like_total">
+              <div class = "like_box_bottom">
+                <p id="total_like"></p>  
+                <i class="fas fa-heart"></i>
+              </div>
             <span>${this.price}/jour</span>
+            </div>
         </div>
 
-        <div id="myModal" class="modal" role="dialog" aria-label="image closeup view">
-        <button id="close-btn" class="close curser"  
-        aria-label="button for close lightbox modal">Fermer</button>
-        <button class="previous curser"  >Précédent</button>
-        <button class="next curser" >Suivant</button>
   `
 }
 

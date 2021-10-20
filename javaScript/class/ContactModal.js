@@ -7,11 +7,12 @@ export default class ModalContactForm{
         var contactHTML= `   
         <div id="form_modal">
           <div id="form_container">   
+          
           <header>
                <h1>Contactez-moi</h1>
                <h2 aria-label="Contactez ${this.name}">${this.name}</h2>
            </header>
-           <button id="closeModalForm" class="close_form curser" aria-label="Fermer le modal button">
+           <button id="closeModalForm" class="close_form curser" aria-label="close">
              X
            </button>
            
@@ -42,7 +43,8 @@ export default class ModalContactForm{
            </div>
          </div>
      `
-         body.insertAdjacentHTML("beforeend", contactHTML);
+     const photographerPage = document.getElementById("photographerPage");
+     photographerPage.insertAdjacentHTML("afterend", contactHTML);
 
        
          const validationBtn = document.getElementById("validate")

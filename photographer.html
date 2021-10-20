@@ -15,7 +15,7 @@
 </head>
 <body id="body" >
 
-    <header role="banner">
+    <header id="profile_banner" role="banner">
         <a id= "back_index" href="index.html" onclick="location.href='index.html'" 
         aria-label="le lien vers page d´accuiel de FishEye">
                 <img class="logo" src="./FisheyeLogo.png" alt="FishEye Home Page">
@@ -24,6 +24,18 @@
     <main>   
         <section id="photographerPage">
         </section>
+
+        <!--SECTION MODAL LIGHTBOX-->
+        <div id="myModal" 
+                class="modal" 
+                role="dialog" 
+                aria-label="image closeup view"
+                aria-hidden = "false">
+            <button id="close-btn" class="close curser"  
+            aria-label="button for close lightbox modal">close</button>
+            <button class="previous curser">back</button>
+            <button class="next curser">next</button>
+        </div>    
     </main>
     <script src="./javaScript/photographer.js" type="module" ></script>    
 </body>

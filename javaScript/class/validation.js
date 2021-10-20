@@ -47,12 +47,14 @@ export default function validation(e){
         }
 
         function setInputError(input, errMessage){
-          input.style.border = "black 3px solid"
+          input.style.border = "red 3px solid"
+          input.style.content =""
           input.className ="text_control "
           input.className ="text_control error"
           let parent = input.parentElement
           let err = parent.querySelector("small")
           err.style.display= "block"
+          err.style.fontWeight="bold"
           err.innerText= errMessage
           input.focus()
       }

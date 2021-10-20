@@ -14,14 +14,9 @@ const body = document.getElementById("body");
 const locationPhotographer = document.querySelector(".location");
 const profileContainer = document.getElementById("profile_container");
 const linkPage = document.getElementById("link_profile");
-//const btnContact = document.querySelector(".btn-contact");
 const btnContact = document.getElementById("contact");
 const logo= document.getElementById("back_index");
-
-
-//const photographerPage = document.getElementById("photographerPage")
-
-//--MODAL
+const photographerPage = document.getElementById("photographerPage")
 
 var listGallery = new Object();
 var newObject = [];
@@ -59,7 +54,6 @@ dataRequest.onload = function () {
       name = name.split(' ').slice(0, 1);
       passedName = name; 
       photographerBanner = newObject.photographers[i]
-      console.log (photographerBanner)
       
       //--DEFINE CLASS FOR CREATE BANNER OF PHOTOGRAPHER
       const photoBanner = new Photographer(
@@ -78,11 +72,11 @@ dataRequest.onload = function () {
       gallery(passedId, passedName);  
       //--first sort by popularity 
       loadBySort("popular")   
+        
       }
     }      
      //--DOM EVENT --dropdown menu
      const dropdown = document.getElementById("sort_menu")
-     console.log(dropdown)
      dropdown.addEventListener('change', (e)=>{
        e.preventDefault()
        const value = e.target.value
@@ -91,7 +85,6 @@ dataRequest.onload = function () {
          
     //--DOM EVENT --click hashtags
     const myTags = document.querySelectorAll(".tag_name")
-    console.log(myTags)
      myTags.forEach(myTag => 
         myTag.addEventListener('click', (el)=>{
           el.preventDefault()
@@ -120,7 +113,6 @@ function launchContactModal(){
   var myContact = document.querySelector("#contact")
   myContact.setAttribute("aria-hidden", "false")
   photographerPage.setAttribute("aria-hidden", "true")
-  photographerPage.style.disabled = "true"
   body.classList.add("no-scroll");
   myContact = new ModalContactForm(passedFullName)
   myContact.createModalContact()
@@ -132,7 +124,6 @@ function launchContactModal(){
 
   const closeContactBtn = document.getElementById("closeModalForm")
   closeContactBtn.focus()
-  console.log(window)
 
   //--DOM EVENT --close contact button
   closeContactBtn.addEventListener('click', (e)=>{
@@ -155,9 +146,7 @@ function launchContactModal(){
     function keyboardContactForm(e){  
       const keyCode = e.keyCode ? e.keyCode : e.which
       e.preventDefault();
-    console.log(keyCode);
     if (keyCode == 27) {//27 = escape button
-      console.log(keyCode);
       closeModalForm();
     }
   }  
@@ -166,7 +155,6 @@ function launchContactModal(){
 function filterTag(tag) {
   //--set countLike to 0 for not accumulate the like on change event
   countLike = 0;
-  console.log(tag)
   var searchText = tag
  var newArray = arrListGallery.filter(function (e) {
  // arrListGallery = arrListGallery.filter(function (e) {  
@@ -174,7 +162,6 @@ function filterTag(tag) {
     var x = e.tags.toString();
     return x === searchText;
   });
-  console.log(newArray);
   galleryContainer.innerHTML = "";
   createGallery(newArray, passedName);
 }
@@ -255,12 +242,11 @@ function createGallery(arrListGallery,photographerName){
       const show = heart[i].previousElementSibling;
       show.innerText = x;
       total_like.innerText = countLike;
-    }, false);
+    },false);
   } 
 
   //--DOM EVENT -- open LIGHTBOX
   const myLightbox = document.querySelectorAll(".modal_lightbox")
-  console.log(myLightbox)
   myLightbox.forEach(lightbox =>
     lightbox.addEventListener('click', (el)=>{
       el.preventDefault()
@@ -277,9 +263,7 @@ function createGallery(arrListGallery,photographerName){
     media.addEventListener('keyup', (e)=>{
       const keyCode = e.keyCode ? e.keyCode : e.which
       e.preventDefault();
-    console.log(keyCode);
-    if (keyCode == 13) {//27 = escape button
-      console.log(e.target);
+    if (keyCode == 13) {//13 = Enter button
       //--get arrtibute "data-id" to obtain the id of the photo
       const currentIdMedia = e.target.getAttribute("data-id")
       //--call function launchModal()
@@ -296,7 +280,6 @@ function loadBySort(option) {
   //--set countLike to 0 eachtime onchange for not accumulate the likes
   countLike = 0;
   if (option == "popular") {
-    console.log(arrListGallery)
     const sortByLike = arrListGallery.sort(function (a, b) {
         return  b.likes -a.likes ;
     });
@@ -341,8 +324,9 @@ function launchModal(id) {
   }); 
       indexCurrentSlide = parseInt(indexCurrentSlide);
       myModal.style.display = "block";
-      myModal.setAttribute("aria-hidden", "false");
-
+      //--set photographerPage to hidden from screen reader
+      photographerPage.style.display = "none";
+      photographerPage.setAttribute("aria-hidden", "true");
       //--if the first or the last photo of array are clicked the previos or next button will be disabled accordingly.
       if(indexCurrentSlide === 0){
         prev.style.display = 'none';
@@ -357,9 +341,7 @@ function launchModal(id) {
       }
       //--create new object by using Factory method to load lightbox currentphoto.
       const lightboxCurrentPhoto = loadFactoryPhoto(currentPhoto, indexCurrentSlide);
-      console.log(currentPhoto)
-      console.log(indexCurrentSlide)
-      //--now lightboxCurrentPhoto is ein object with property load() from Factory function "loadFactoryPhoto"
+      //--now lightboxCurrentPhoto is an object with property load() from Factory function "loadFactoryPhoto"
       lightboxCurrentPhoto.load();
 
       //--AddEventListener to Prev , next and close button
@@ -369,37 +351,25 @@ function launchModal(id) {
 /**
  * ADD KEYBOARD EVENT ON MODAL
  */
-      window.addEventListener("keydown", keyboardLightbox);
+      window.addEventListener("keyup", keyboardLightbox);
 
       function keyboardLightbox(e){
         const keyCode = e.keyCode ? e.keyCode : e.which
           e.preventDefault();
-        console.log(keyCode);
         if (keyCode == 27 && myModal.getAttribute("aria-hidden", "false")) {//27 = escape button
-          console.log(keyCode, myModal);
           closeModal();
         } else if (keyCode == 39 && myModal.getAttribute("aria-hidden", "false")) {//39 = arrowright button
-          console.log("next", keyCode, myModal);
           next.focus()
           nextPhoto();    
         } else if (keyCode == 37 && myModal.getAttribute("aria-hidden", "false")) {//37 = arrowleft button
-          console.log("previous", keyCode, myModal);
           prev.focus();
           prevPhoto();
-        } else if (keyCode == 40 && myModal.getAttribute("aria-hidden", "false")) {//40 = arrowdown button
-          next.focus();
-        }else if (keyCode == 27) {//40 = arrowdown button
-          const logo = document.querySelector(".logo")
-          alert(e.focus)
-          logo.focus();
-        }
+        } 
       }
     //-------------------------------------------------------------------------
     //-- Function to call next photo
     function nextPhoto() {
-        var nextIndex = indexCurrentSlide + 1
-        console.log("currentphoto array is"+ arrLightbox.length) 
-        console.log(nextIndex)
+        var nextIndex = indexCurrentSlide + 1;
         //disable next button when the last photo of array 
         if (nextIndex === arrLightbox.length-1 || nextIndex >= arrLightbox.length){
           const lightboxCurrentPhotoPrev = loadFactoryPhoto(arrLightbox[arrLightbox.length -1], arrLightbox.length-1);
@@ -469,21 +439,18 @@ function launchModal(id) {
 //-------------------------------------------------------------------------
 function loadFactoryPhoto(arr, index){
   return {  
-    load(){
-    console.log("lightbox array" + arr.title)
-    console.log(index);
-  
+    load(){  
     var modelHTMLImg = `  
     <div id="modal_content">
       <figure class="lightbox">          
-      <img src="./Sample Photos/${passedName}/${arr.image}" alt="">
+      <img src="./Sample Photos/${passedName}/${arr.image}" alt="image de ${arr.title}">
       <figcaption>${arr.title}</figcaption>
       </figure>
     </div>`
     var modelHTMLVideo = `  
     <div id="modal_content">
       <figure class="lightbox">          
-      <video src="./Sample Photos/${passedName}/${arr.video}" type="video/mp4" controls> </video>
+      <video src="./Sample Photos/${passedName}/${arr.video}"title="video de ${arr.title}" type="video/mp4" controls> </video>
       <figcaption>${arr.title}</figcaption>
       </figure>
     </div>  
@@ -495,18 +462,9 @@ function loadFactoryPhoto(arr, index){
     }
     if(arr.image != null){
       myModal.insertAdjacentHTML("beforeend", modelHTMLImg );
-        console.log( "img")
       }else if (arr.video != null){
         myModal.insertAdjacentHTML("beforeend", modelHTMLVideo );
-        console.log(modelHTMLVideo);
-        console.log("Video")
       }
-    const closeBtn = document.getElementById("close-btn");
-    //--set background modal to aria-hidden = true
-    photographerPage.setAttribute("aria-hidden", "true");
-    //--add class to hide scrollbar on body and focus at close button 
-//    closeBtn.focus();
-    body.classList.add("no-scroll");
       }
     }
   }

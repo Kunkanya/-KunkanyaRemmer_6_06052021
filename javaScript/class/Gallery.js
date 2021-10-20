@@ -21,9 +21,10 @@ export default class Gallery {
         <figcaption class="figcaption_media">${this.title}
           <div class="show">     
            <p>${this.likes}</p>       
-           <div data-like="${this.likes}" class="like" role="button" aria-label="bouton pour incrementer les likes">
-            <i class="fas fa-heart"></i>
-           </div>
+            <div data-like="${this.likes}" class="like" 
+                role="button" aria-label="  likes">
+                <i class="fas fa-heart"></i>
+            </div>
           </div>    
           </figcaption>
         <p>${this.date}</p></a>

@@ -44,8 +44,7 @@ class Photographer {
   
     console.log (this.portrait)
   }
-
-  //METHOD(): CREATE HTML BLOCK TO CREATE PROFILE BLOCK
+id  //METHOD(): CREATE HTML BLOCK TO CREATE PROFILE BLOCK
   createProfile(){
      let createProfileHTML = ` 
       <article class="photographer" >
@@ -53,17 +52,19 @@ class Photographer {
         <a href="./photographer.html?id=${this.id}" id="link_profile" aria-label="Portrait de ${this.name}">
             <figure>
               <div class="avatar"><img src="${this.portrait}"
-                        alt="Image of ${this.portrait}">
+                        alt="Portrait de  ${this.name}">
               </div>
               <figcaption id="name">${this.name}</figcaption>
             </figure>
-          </a>
+          
           <div class="details">
-            <h2 class="location">${this.city} , ${this.country}</h2>
+            <h2 class="location" aria-label="Town">${this.city} , ${this.country}</h2>
             <small class="slogan">${this.tagline}</small>
             <p class="price">${this.price}€/jour</p>
           </div>
           ${this.createTags()}
+          
+          </a>
           </article>
       `;
 
@@ -77,7 +78,7 @@ class Photographer {
           <ul class="tag_container">
             ${this.tags.map(function(tag){
                 return `  
-                        <li><a href="#" onclick="filterTag(this)" class="tag_name"> 
+                        <li><a href="#" onclick="filterTag(this)" class="tag_name" aria-label="${tag}"> 
                         ${tag} </a>
                         <span class="sr_only">${tag}</span>
                         </li>                
@@ -91,18 +92,14 @@ class Photographer {
   //-- Function for filter the tagsname 
 function filterTag(ele){
   
-  console.log(ele)
   //-- ele.innerHTML = tagname to be searched : use trim()to have only string ready for search
   let searchText = ele.innerHTML.toLowerCase();
-  console.log(searchText)
   searchText = searchText.trim();
-      console.log(searchText)
     var newArray = newObject.filter(function(e){
       //return  newObject.photographers[e].tags.includes(searchText);
     return e.tags.includes(searchText);
         }  
     )
-    console.log(newArray);
     //-- set profile container =  null add send newArray with Tagname to create
     profileContainer.innerHTML= "";
     newArray.map(function(photographer){
