@@ -467,6 +467,10 @@ textarea{
         width: 100%;
         height: auto;
     }
+    .lightbox video{
+        width: 100%;
+        height: auto;
+    }
     .lightbox figcaption{
         font-size: 1em;
         font-weight: 400;

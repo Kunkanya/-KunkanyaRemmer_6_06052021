@@ -15,7 +15,7 @@ const locationPhotographer = document.querySelector(".location");
 const profileContainer = document.getElementById("profile_container");
 const linkPage = document.getElementById("link_profile");
 const btnContact = document.getElementById("contact");
-const logo= document.getElementById("back_index");
+const profileBanner= document.getElementById("profile_banner");
 const photographerPage = document.getElementById("photographerPage")
 
 var listGallery = new Object();
@@ -325,6 +325,9 @@ function launchModal(id) {
       indexCurrentSlide = parseInt(indexCurrentSlide);
       myModal.style.display = "block";
       //--set photographerPage to hidden from screen reader
+      profileBanner.style.display ="none";
+      profileBanner.setAttribute("aria-hidden", "true");
+      
       photographerPage.style.display = "none";
       photographerPage.setAttribute("aria-hidden", "true");
       //--if the first or the last photo of array are clicked the previos or next button will be disabled accordingly.
@@ -420,8 +423,12 @@ function launchModal(id) {
     function closeModal() {
     //--remove keyboardEvent for lightbox when close
    window.removeEventListener("keydown", keyboardLightbox);
+   //--disable lightboxmodal
    myModal.style.display = "none";
    myModal.setAttribute("aria-hidden", "true");
+    //--activate logo and main section
+   profileBanner.style.display="block";
+   profileBanner.setAttribute("aria-hidden", "false");
    photographerPage.style.display="block";
    photographerPage.setAttribute("aria-hidden", "false");
    //--remove class to hide scrollbar on body 

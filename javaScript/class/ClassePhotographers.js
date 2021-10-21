@@ -1,4 +1,4 @@
-const profileContainer = document.getElementById("profile_container");
+//const profileContainer = document.getElementById("profile_container");
 
 
 export default class Photographer {
@@ -11,7 +11,6 @@ export default class Photographer {
       this.tagline = tagline
       this.price = price
       this.portrait = `./Sample Photos/Photographers ID Photos/${portrait}` 
- console.log(this)  
     }
   
     createBanner(){    
@@ -73,38 +72,8 @@ createTags(){
           }).join('')}
       </ul>
       `
+  }
 }
-
-dropdown(){
-
-}
-dropdown_select(){
-  /*
-  <div class="dropdown_container">
-  <label for="sort_menu">Trier par</label>
-  <select class="btn dropdown" name="sort_menu" id="sort_menu">
-    <option value="popular" selected>Popularité</option>
-    <option value="date">Date</option>
-    <option value="title">Titre</option>
-  </select>
-  <i class="fas fa-angle-up dropdown_arrow"></i>
-</div>
-
-
-      <div class="dropdown_container">
-        <h2>Trier par</h2>
-        <ul class="dropdown" role="button">
-            <li class="btn">Populatrité</li>
-            <li>Date</li>
-            <li>Title</li>
-        </ul>
-      </div >
-
-
-*/
-
-}
-    }
     
 
 
