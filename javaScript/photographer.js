@@ -446,14 +446,14 @@ function loadFactoryPhoto(arr, index){
   return {  
     load(){  
     var modelHTMLImg = `  
-    <div id="modal_content">
-      <figure class="lightbox">          
+    <div id="modal_content" tabindex="0">
+      <figure class="lightbox" >          
       <img src="./Sample Photos/${passedName}/${arr.image}" alt="image de ${arr.title}">
       <figcaption>${arr.title}</figcaption>
       </figure>
     </div>`
     var modelHTMLVideo = `  
-    <div id="modal_content">
+    <div id="modal_content" tabindex="0">
       <figure class="lightbox">          
       <video src="./Sample Photos/${passedName}/${arr.video}"title="video de ${arr.title}" type="video/mp4" controls> </video>
       <figcaption>${arr.title}</figcaption>
