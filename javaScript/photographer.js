@@ -209,8 +209,8 @@ function createGallery(arrListGallery,photographerName){
       if (arr.video != null) {
         path = `"./Sample Photos/${photographerName}/${arr.video}"`
         source = `<video  src=${path} type="video/mp4" 
-                  title= "Video de ${arr.video}"
-                  class="modal_lightbox" data-id="${arr.id}" aria-label="video de ${arr.video}"></video>`
+                  title= "Video de ${arr.title}"
+                  class="modal_lightbox" data-id="${arr.id}" aria-label="video de ${arr.title}"></video>`
         return source;
       } else if (arr.image != null) {
         path = `"./Sample Photos/${photographerName}/${arr.image}"`

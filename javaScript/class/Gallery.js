@@ -17,10 +17,8 @@ export default class Gallery {
       const galleryContainer = document.getElementById("galleryContainer");
 
       var gallery = `
-      <figure class="media curser">
-        <a href="#" data-id="${this.id}" role="le lien vers lightbox de ${this.title}">
-          ${this.media}
-        </a>
+      <figure class="media curser" data-id="${this.id}" role="le lien vers lightbox de ${this.title}">
+      ${this.media}
         <figcaption class="figcaption_media">${this.title}
           <div class="show">     
            <p>${this.likes}</p>       
