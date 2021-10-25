@@ -24,18 +24,18 @@ export default class ModalContactForm{
                </div>
                <div class="input">
                  <label for="lastname">Nom</label>
-                 <input type="text" name="lastname" id="lastname" minlength="2" placeholder="Lastname" aria-labelledby="lastname">
+                 <input type="text" name="lastname" id="lastname" minlength="2" placeholder="Nom" aria-labelledby="lastname">
                  <small></small>
                </div>
                <div class="input">
                  <label for="email">Email</label>
-                 <input type="email" name="email" id="email" aria-labelledby="email"  required>
+                 <input type="email" name="email" id="email" aria-labelledby="email" placeholder="Email"  required>
                  <small></small>
                </div>
      
                <div class="input">
                <label for="message">Votre message</label>
-               <textarea name="message" id="message" placeholder="text here" aria-labelledby="message"></textarea>
+               <textarea name="message" id="message" placeholder="Message" aria-labelledby="message"></textarea>
                </div>
                <input type="submit" id="validate" class="btn btn-submit" value="Envoyer">        
            </form>
@@ -53,7 +53,6 @@ export default class ModalContactForm{
              validation(e)
          })
      
-     //-- EVENT VALADATION FORM
     }
    
 }

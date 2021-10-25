@@ -239,7 +239,7 @@ figure.lightbox{
     border-radius: 10px;
 }
 .close_form{
- position : absolute;
+    position : absolute;
     top: 0;
     right:0;
     border: none;

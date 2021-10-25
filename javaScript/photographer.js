@@ -200,6 +200,7 @@ function createGallery(arrListGallery,photographerName){
       arr.date,
       arr.price
     )
+    //--Call the class Gallery.createGallery()
     photographerGallery.createGallery();
       //--add number of like from each photo to total-like
       countLike += arr.likes;
