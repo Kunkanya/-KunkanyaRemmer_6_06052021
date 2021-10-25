@@ -41,9 +41,7 @@ class Photographer {
     this.tagline = tagline
     this.price = price
     this.portrait = `./Sample Photos/Photographers ID Photos/${portrait}` 
-  
-    console.log (this.portrait)
-  }
+    }
 id  //METHOD(): CREATE HTML BLOCK TO CREATE PROFILE BLOCK
   createProfile(){
      let createProfileHTML = ` 
