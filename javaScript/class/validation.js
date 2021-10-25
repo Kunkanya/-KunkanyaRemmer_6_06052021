@@ -42,7 +42,6 @@ export default function validation(e){
     
       function validateEmail(email){
        const reg2= new RegExp(/@+[a-zA-Z0-9]+\./) //pattern: myemail@hotmail.com
-       console.log(reg2.test(email))
        return reg2.test(email);
         }
 

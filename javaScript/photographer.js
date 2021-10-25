@@ -1,7 +1,6 @@
 import Photographer from './class/ClassePhotographers.js'
 import Gallery from './class/Gallery.js';
 import ModalContactForm from './class/ContactModal.js';
-import validation from './class/validation.js'
 
 
 //import {loadFactoryPhoto} from '../javaScript/class/FactoryMedia.js'
@@ -11,12 +10,10 @@ var dataRequest = new XMLHttpRequest();
 const url = "./data.json";
 //--GLOBAL DOM VAR
 const body = document.getElementById("body");
-const locationPhotographer = document.querySelector(".location");
-const profileContainer = document.getElementById("profile_container");
-const linkPage = document.getElementById("link_profile");
-const btnContact = document.getElementById("contact");
 const profileBanner= document.getElementById("profile_banner");
 const photographerPage = document.getElementById("photographerPage")
+const myModal = document.getElementById("myModal");
+
 
 var listGallery = new Object();
 var newObject = [];
@@ -25,7 +22,6 @@ var arrLightbox =[];
 var countLike = 0;
 var passedName = "";
 var passedFullName ="";
-var currentSlideIndex = 0;
 //--Request data from Json file
 dataRequest.open("GET", url);
 dataRequest.onload = function () {
@@ -46,7 +42,7 @@ dataRequest.onload = function () {
     if (passedId == checkId) {
       var name = "";
         //--convert string to integer for checking ID 
-      var passedId = parseInt(photoId);
+      passedId = parseInt(photoId);
       var photographerBanner = [];
       //--to get only firstname using for the variable for Photos Path
       name = newObject.photographers[i].name;
@@ -153,6 +149,8 @@ function launchContactModal(){
 } 
 //--Function for filter the tagsname 
 function filterTag(tag) {
+  const galleryContainer = document.getElementById("galleryContainer");
+
   //--set countLike to 0 for not accumulate the like on change event
   countLike = 0;
   var searchText = tag
@@ -169,9 +167,7 @@ function filterTag(tag) {
 //-------------------------------------------------------------------------
 
 function gallery(photographerId, photographerName) {
-  var imgPath = "";
-  const galleryContainer = document.getElementById("galleryContainer");
-  const myModal = document.getElementById("myModal");
+  //const myModal = document.getElementById("myModal");
 
   //--Select the media of th photographer and add to arrListGallery
   for (let j = 0; j < newObject.media.length; j++) {
@@ -179,8 +175,8 @@ function gallery(photographerId, photographerName) {
     if (photographerId == isId) {
       listGallery = Object.assign(newObject.media[j]);
       arrListGallery.push(listGallery);
-    };
-  };
+    }
+  }
   createGallery(arrListGallery, photographerName)  
   return arrListGallery;
 }
@@ -209,7 +205,7 @@ function createGallery(arrListGallery,photographerName){
     function sourcePath() {
       var path = "";
       var source = "";
-      var countLike = 0;
+      //var countLike = 0;
       if (arr.video != null) {
         path = `"./Sample Photos/${photographerName}/${arr.video}"`
         source = `<video  src=${path} type="video/mp4" 
@@ -277,6 +273,7 @@ function createGallery(arrListGallery,photographerName){
 //--------------------------------------------------------------------------
 //--Function for sort when choose the option in dropdown list.
 function loadBySort(option) {
+  const galleryContainer = document.getElementById("galleryContainer");
 
   //--set countLike to 0 eachtime onchange for not accumulate the likes
   countLike = 0;
@@ -299,7 +296,7 @@ function loadBySort(option) {
     const sortByName = arrListGallery.sort(function (a, b) {
         if (a.title.toLowerCase() < b.title.toLowerCase()) return -1; // a comes first
       if (a.title.toLowerCase() > b.title.toLowerCase()) return 1; // b comes first
-      if (a.title.toLowerCase() = b.title.toLowerCase()) return 0; // nothing change
+      if (a.title.toLowerCase() == b.title.toLowerCase()) return 0; // nothing change
     });
     galleryContainer.innerHTML = "";
     createGallery(sortByName, passedName);
@@ -379,9 +376,9 @@ function launchModal(id) {
           const lightboxCurrentPhotoPrev = loadFactoryPhoto(arrLightbox[arrLightbox.length -1], arrLightbox.length-1);
           lightboxCurrentPhotoPrev.load();
           next.style.display = 'none'
-          next.disabled = false
+          next.disabled = true
           prev.style.display = 'block'
-          prev.disabled = true
+          prev.disabled = false
           // set indexcurrentSlide always to the last array.lenght-1
           indexCurrentSlide = arrLightbox.length - 1
           return
@@ -395,7 +392,7 @@ function launchModal(id) {
             indexCurrentSlide = nextIndex ;
             return
           }
-        };  
+        }
     //-------------------------------------------------------------------------
     //-- Function to call previous photo
     function prevPhoto() {
@@ -419,7 +416,7 @@ function launchModal(id) {
         indexCurrentSlide = prevIndex
         return
         }
-      };  
+      }  
       //--Function close lightbox modal
     function closeModal() {
     //--remove keyboardEvent for lightbox when close
@@ -439,10 +436,10 @@ function launchModal(id) {
    if (modalContent != null) {
      modalContent.remove();
      location.reload()
-   };
+   }
 //   location.href="photographer.html";
-  };
-    }
+  }
+}
 /**END LAUNCHMODAL FUNCTION */
 //-------------------------------------------------------------------------
 function loadFactoryPhoto(arr, index){
