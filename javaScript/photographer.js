@@ -122,7 +122,7 @@ function launchContactModal(){
   closeContactBtn.focus()
 
   //--DOM EVENT --close contact button
-  closeContactBtn.addEventListener('click', (e)=>{
+  closeContactBtn.addEventListener('click', ()=>{
   closeModalForm()
   
   })
@@ -462,6 +462,7 @@ function loadFactoryPhoto(arr, index){
     `
     //checked if media is video or image
     const modalContent = document.getElementById("modal_content")
+      index == index
     if( modalContent != null){
       modalContent.remove();
     }
