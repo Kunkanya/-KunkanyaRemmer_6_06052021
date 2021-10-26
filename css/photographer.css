@@ -3,6 +3,7 @@ main{
     margin :  0 1em 1em 1em;
 }
 
+
 /*photographer.html*/
 #id_name{
     font-size: 3em;
@@ -97,7 +98,38 @@ main{
 .figcaption_media i{
     color : var(--color_primary)
 }
+.heart {
 
+    stroke-width: 2px;
+    stroke: var(--color_primary);
+    fill:white;
+}
+.heart.like{
+    animation: 0.5s ease-in forwards like;    
+}
+.heart.unlike{
+    animation: 0.5s ease-in forwards unlike;
+    
+}
+
+@keyframes like {
+ 0%{
+     fill: white;
+ }   
+ 100%{
+     fill : var(--color_primary);
+ }
+}
+
+@keyframes unlike {
+    0%{
+        fill: var(--color_primary);
+    }   
+    100%{
+        fill : white;
+    }
+   }
+   
 .like_total{
     position: fixed;
     bottom: 0;
@@ -112,6 +144,7 @@ main{
 }
 .like{
     cursor: pointer;
+    position:relative;
 }
 
 
@@ -531,4 +564,7 @@ textarea{
         font-size: 1.5em;
     }
    
+}
+.hidden{
+    display: none;
 }

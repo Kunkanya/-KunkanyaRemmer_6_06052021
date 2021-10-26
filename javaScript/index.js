@@ -42,7 +42,7 @@ class Photographer {
     this.price = price
     this.portrait = `./Sample Photos/Photographers ID Photos/${portrait}` 
     }
-id  //METHOD(): CREATE HTML BLOCK TO CREATE PROFILE BLOCK
+  //METHOD(): CREATE HTML BLOCK TO CREATE PROFILE BLOCK
   createProfile(){
      let createProfileHTML = ` 
       <article class="photographer" >

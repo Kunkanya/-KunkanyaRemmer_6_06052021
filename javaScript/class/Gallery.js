@@ -22,15 +22,13 @@ export default class Gallery {
         <figcaption class="figcaption_media">${this.title}
           <div class="show">     
            <p>${this.likes}</p>       
-            <div data-like="${this.likes}" class="like" 
-                role="button" aria-label="  likes">
-                <i class="fas fa-heart"></i>
-            </div>
+                <svg class="heart curser unlike" data-like="${this.likes}" width="20px" xmlns="http://www.w3.org/2000/svg" role="button" viewBox="0 0 24 24">
+                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
           </div>    
           </figcaption>
       </figure>
        `
        galleryContainer.innerHTML += gallery
       }
-
-}
+    }

@@ -225,22 +225,32 @@ function createGallery(arrListGallery,photographerName){
   const total_like = document.querySelector("#total_like");
   total_like.innerText = countLike;
 
-  //-- increment like when click
-  const heart = document.querySelectorAll(".like");
-  for (let i = 0; i < heart.length; i++) {
-    //-- access dataset from class likeand pass it to integer
-    let x = parseInt(heart[i].dataset.like);
-    //--addEventlistener to each heart
-    heart[i].addEventListener("click", () => {
-      x++;
-      //-- add each like-click to total like
-      countLike++;
-      //--select previousElementSibling from heart[i]to change the value to (X)
-      const show = heart[i].previousElementSibling;
+  //-- increment like when click and unlike when click
+  const hearts = document.querySelectorAll(".heart");
+  hearts.forEach(heart =>{
+  heart.addEventListener('click', ()=>{
+    const show = heart.previousElementSibling;
+    var x = parseInt(heart.dataset.like);
+
+    if(heart.classList.contains('like')){
+      heart.classList.remove('like');
+      heart.classList.add('unlike');
       show.innerText = x;
+      countLike--;
       total_like.innerText = countLike;
-    },false);
-  } 
+      
+
+    }else{
+    heart.classList.remove ("unlike");
+    heart.classList.add('like');
+    x++
+    show.innerText = x;
+    countLike++
+    total_like.innerText = countLike;
+  }
+  })
+})
+ 
 
   //--DOM EVENT -- open LIGHTBOX
   const myLightbox = document.querySelectorAll(".modal_lightbox")
